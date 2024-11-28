@@ -1,10 +1,9 @@
 import type { NavLink } from './types';
 
 export const navLinks: NavLink[] = [
-	{ text: 'Home', link: 'home' },
-	{ text: 'About', link: 'about' },
-	{ text: 'Portfolio', link: 'portfolio' },
-	{ text: 'Tools', link: 'tools' },
-	{ text: 'Social', link: 'social' },
-	{ text: 'Contact Me', link: 'contact' }
+	{ text: 'Bryant Mejia', link: '/' },
+	{ text: 'Bio', link: '#bio' },
+	{ text: 'Portfolio', link: '#portfolio' },
+	{ text: 'Technical', link: '#tech' },
+	{ text: 'Contact', link: '#contact' }
 ];

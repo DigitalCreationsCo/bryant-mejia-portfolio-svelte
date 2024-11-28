@@ -11,6 +11,6 @@
 <main>
 	<Navbar />
 	<Hero />
-	<About />
-	<Portfolio fetch={data.fetch} projectService={data.projectService} />
+	<!-- <About />
+	<Portfolio fetch={data.fetch} projectService={data.projectService} /> -->
 </main>

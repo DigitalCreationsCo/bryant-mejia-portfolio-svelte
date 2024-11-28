@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { hamburgerMenuExpanded } from '$lib/config';
-
+	import { fadeSequence, startFadeSequence } from '$lib/store/sequentialFade';
 	import Hamburger from '$lib/components/buttons/Hamburger.svelte';
-
 	import { navLinks } from '$lib/components/navigation';
 
 	let navbar: HTMLElement;
@@ -11,15 +10,16 @@
 	let scrollY = 0;
 	let scrollDelta = 0;
 	let previousScrollposition = scrollY;
-	let backgroundClasses = 'fade';
 
 	onMount(() => {
-		setTimeout(() => {
-			showNavbar();
-		}, 5000);
-		window.onscroll = async () => {
-			autoHideNavbar();
-		};
+		// setTimeout(() => {
+		// 	showNavbar();
+		// }, 5000);
+		// window.onscroll = async () => {
+		// 	autoHideNavbar();
+		// };
+
+		startFadeSequence();
 	});
 
 	function showNavbar() {
@@ -48,29 +48,20 @@
 
 <svelte:window bind:scrollY />
 
-<section
-	bind:this={navbar}
-	class="position-fixed w-100 bg-dark {backgroundClasses}"
-	style="transition-duration: 500ms;"
->
-	<div class="d-flex justify-content-between align-items-end">
-		<!-- Logo -->
-		<div class="my-auto ps-2">
-			<a href="/">
-				<h1 class="pb-0 mb-2">Bryant Mejia</h1>
+<section bind:this={navbar} class="fixed bottom-0 md:sticky">
+	<!-- Nav links -->
+	<div
+		class="relative flex flex-row w-full justify-evenly md:justify-end transition-transform duration-[600ms]"
+		class:translate-y-[-5rem]={!$fadeSequence.navbar}
+		class:translate-y-0={$fadeSequence.navbar}
+	>
+		{#each navLinks as link}
+			<a href={link.link} class="shrink-0 hover:md:blur-[1px] hover:md:bg-slate-500 py-5 md:p-5">
+				<h3>
+					{link.text.toUpperCase()}
+				</h3>
 			</a>
-		</div>
-
-		<!-- Nav links -->
-		<div class="d-none d-xl-block mb-2">
-			{#each navLinks as link}
-				<a href="#{link.link}" class="px-2">
-					<h3 class="d-inline">
-						{link.text.toUpperCase()}
-					</h3>
-				</a>
-			{/each}
-		</div>
+		{/each}
 
 		<!-- Hamburger menu -->
 		<!-- <Hamburger {isBgTransparent} /> -->

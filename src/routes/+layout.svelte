@@ -4,10 +4,11 @@
 
 <slot />
 
+<!-- 
 <style global lang="postcss">
 	:global(h1),
 	:global(h2) {
-		font-weight: bolder;
+		/* font-weight: bolder; */
 		/* @apply font-jetbrains font-extrabold text-text; */
 	}
 
@@ -61,4 +62,4 @@
 			transform: scale(1);
 		}
 	} */
-</style>
+</style> -->
