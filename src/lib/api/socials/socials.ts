@@ -12,8 +12,16 @@ export const githubLink = 'https://github.com/digitalcreationsco';
 export const linkedInLink = 'https://www.linkedin.com/in/bryant-mejia-085669331/';
 export const whatsappLink = 'https://wa.me/62895338593923';
 export const emailLink = 'mailto:bryantmejia722@outlook.com';
+export const resumeLink = 'https://docs.google.com/uc?id=1MfQZpvgEiHuwqUGs20z2ICA7i9xT-CMZ&export=download&hl=en_US';
 
 export const socials = [
+	{
+		social: 'Download Resume',
+		name: '',
+		link: resumeLink,
+		// colorVariant: { key: 'email' } as ButtonColorVariant,
+		// icon: Email
+	},
 	{
 		social: 'Github',
 		name: 'Digital Creations Co',

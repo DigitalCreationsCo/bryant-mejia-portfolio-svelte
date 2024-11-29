@@ -4,7 +4,6 @@
 
 	export let project: Project;
 
-	console.info('project', project);
 	const tags = project.tags.map((tag) => {
 		return { key: 'default', name: tag };
 	});

@@ -33,7 +33,7 @@ class ProjectService {
 					description: json.description,
 					imageUrl: project.imageUrl,
 					readmeUrl: project.readmeUrl,
-					tags: [...project.tags, json.language.toLowerCase()],
+					tags: [...project.tags, json?.language?.toLowerCase()].filter(Boolean),
 					starsCount: json.stargazers_count,
 					forksCount: json.forks,
 					downloadsCount: await this.getDownloadsCount(project.url)
@@ -122,6 +122,8 @@ class ProjectService {
 		fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>;
 	}) {
 		try {
+			// console.info('hello')
+			// console.info('project, ', project.url)
 			const response = await fetch(project.url, {
 				method: 'GET',
 				headers: {
@@ -141,7 +143,7 @@ class ProjectService {
 					url: project.url,
 					description: json.description,
 					imageUrl: project.imageUrl,
-					tags: [...project.tags, json.language.toLowerCase()],
+					tags: [...project.tags, json?.language?.toLowerCase()].filter(Boolean),
 					repositoryUrl: json['svn_url'],
 					hasLiveUrl: project.liveUrl || json.homepage || false,
 					liveUrl: project.liveUrl || json.homepage,

@@ -49,7 +49,7 @@ const initialProjects: Project[] = [
 		imageUrl:
 			'',
 		readmeUrl:
-			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/master/README.md?token=GHSAT0AAAAAAC24QLMWQKWAW7WEY66ISALSZ2JOQ4A',
+			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/production/README.md?token=GHSAT0AAAAAAC24QLMWQKWAW7WEY66ISALSZ2JOQ4A',
 		tags: ['SaaS', 'react']
 	},
 	{
@@ -73,7 +73,7 @@ const initialProjects: Project[] = [
 		liveUrl: 'https://bryantmejia.com',
 		description: '',
 		imageUrl: '',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/master/README.md',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
 		tags: ['html', 'svelte', 'frontend']
 	},
 	{
@@ -81,6 +81,7 @@ const initialProjects: Project[] = [
 		slug: 'food-delivery',
 		name: 'Food Delivery Application',
 		url: `${githubApiLink}/food-delivery-app-react-native`,
+		liveUrl: '',
 		description: '',
 		imageUrl: '',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/food-delivery-app-react-native/refs/heads/master/README.md',

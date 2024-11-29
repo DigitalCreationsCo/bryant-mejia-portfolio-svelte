@@ -9,6 +9,8 @@
 
 	export let data: PageData;
 
+	// console.log('Client-side log - received data:', data);
+
 	onMount(() => {
 		data.projectService.fetchProjectDetail({ project: data.project, fetch: data.fetch });
 	});
