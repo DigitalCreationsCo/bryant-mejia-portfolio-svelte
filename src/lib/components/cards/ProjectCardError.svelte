@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Project } from '$lib/api/projects';
+	import type { Project } from '$lib/types';
+	import Typewriter from 'svelte-typewriter';
 	import { scale } from 'svelte/transition';
 
 	export let project: Project;
@@ -10,18 +11,22 @@
 		<!-- Hero -->
 		<div>
 			<div>
-				<h2 class="text-white text-center">Error!</h2>
+				<div>
+					<h2 class="text-red-500">Error!</h2>
+				</div>
 			</div>
 		</div>
 
 		<!-- Messages -->
-		<div class="py-2 px-4">
-			<h3 class="mb-2 text-white text-center">
-				{project.name === 'limit' ? 'API rate limit exceeded' : 'Failed to fetch data'}
-			</h3>
-			<p class="text-white text-center">
-				{project.description}
-			</p>
+		<div>
+			<Typewriter mode={'cascade'} delay={600} interval={10} showCursorOnDelay={false}>
+				<h2>
+					{project.name === 'limit' ? 'API rate limit exceeded' : 'Failed to fetch data'}
+				</h2>
+				<h2>
+					{project.description}
+				</h2>
+			</Typewriter>
 		</div>
 	</div>
 </div>

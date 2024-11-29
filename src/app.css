@@ -9,7 +9,7 @@
 }
 
 body {
-    background: #191a1b;
+    background: var(--dark);
     color: #e9f4ff;
     font-family: "JetBrains Mono", Arial, Helvetica, sans-serif;
 }

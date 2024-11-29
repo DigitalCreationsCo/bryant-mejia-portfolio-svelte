@@ -1,7 +1,7 @@
-import { projectsStore, projectDetailStore } from './store';
+import { projectsStore, projectDetailStore } from '$lib/store/projects';
+import type { Project, ProjectDetail } from '$lib/types';
 import { browser } from '$app/environment';
 import { error } from '@sveltejs/kit';
-import type { Project, ProjectDetail } from './types';
 
 class ProjectService {
 	async fetchProject({
@@ -26,8 +26,10 @@ class ProjectService {
 			if (response.status === 200) {
 				newProject = {
 					id: project.id,
+					slug: project.slug,
 					name: project.name,
 					url: project.url,
+					liveUrl: project.liveUrl,
 					description: json.description,
 					imageUrl: project.imageUrl,
 					readmeUrl: project.readmeUrl,
@@ -63,7 +65,9 @@ class ProjectService {
 					fallbackData = [
 						{
 							id: project.id,
+							slug: project.slug,
 							name: 'limit',
+							liveUrl: project.liveUrl,
 							url: project.url,
 							description: json.message,
 							imageUrl: project.imageUrl,
@@ -86,15 +90,17 @@ class ProjectService {
 
 			if (browser && localStorage.getItem('projects')) {
 				fallbackData = (JSON.parse(localStorage.getItem('projects') ?? '[]') as Project[]).map(
-					(project) => ({ ...project, imageText: 'No internet connection' })
+					(project) => ({ ...project, imageText: 'A connection could not be established.' })
 				);
 			} else {
 				fallbackData = [
 					{
 						id: project.id,
+						slug: project.slug,
 						name: 'error',
+						liveUrl: project.liveUrl,
 						url: project.url,
-						description: 'No internet connection',
+						description: 'A connection could not be established.',
 						imageUrl: project.imageUrl,
 						readmeUrl: project.readmeUrl,
 						tags: []
@@ -130,14 +136,15 @@ class ProjectService {
 			if (response.status === 200) {
 				newProject = {
 					id: project.id,
+					slug: project.slug,
 					name: project.name,
 					url: project.url,
 					description: json.description,
 					imageUrl: project.imageUrl,
 					tags: [...project.tags, json.language.toLowerCase()],
 					repositoryUrl: json['svn_url'],
-					hasLivePreview: json.homepage ? true : false,
-					livePreviewUrl: json.homepage,
+					hasLiveUrl: project.liveUrl || json.homepage || false,
+					liveUrl: project.liveUrl || json.homepage,
 					readmeUrl: project.readmeUrl,
 					starsCount: json.stargazers_count,
 					forksCount: json.forks,
@@ -153,17 +160,19 @@ class ProjectService {
 				if (browser && localStorage.getItem('projectDetail')) {
 					fallbackData = {
 						...(JSON.parse(localStorage.getItem('projectDetail') ?? '{}') as ProjectDetail),
-						imageText: 'Server error / API rate limit exceeded'
+						imageText: 'Server error: API rate limit exceeded'
 					};
 				} else if (response.status === 403) {
 					fallbackData = {
 						id: project.id,
+						slug: project.slug,
 						name: 'limit',
 						url: project.url,
+						liveUrl: project.liveUrl,
 						description: json.message,
 						imageUrl: project.imageUrl,
 						tags: [],
-						hasLivePreview: false,
+						hasLiveUrl: false,
 						readmeUrl: project.readmeUrl,
 						repositoryUrl: ''
 					};
@@ -188,12 +197,14 @@ class ProjectService {
 			} else {
 				fallbackData = {
 					id: project.id,
+					slug: project.slug,
 					name: 'error',
 					url: project.url,
 					description: 'No internet connection',
 					imageUrl: project.imageUrl,
 					tags: [],
-					hasLivePreview: false,
+					liveUrl: project.liveUrl,
+					hasLiveUrl: false,
 					readmeUrl: project.readmeUrl,
 					repositoryUrl: ''
 				};

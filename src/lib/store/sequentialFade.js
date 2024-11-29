@@ -23,9 +23,9 @@ export function startFadeSequence() {
 
             setTimeout(() => {
                 fadeSequence.update(seq => ({ ...seq, text: true })); // Text fades last
-            }, 3000); // 0.5s after navbar
+            }, 1900); // third sequence
 
-        }, 6000); // 0.5s after center
+        }, 3200); // second sequence
 
-    }, 500); // Small initial delay
+    }, 500); // first sequence
 }

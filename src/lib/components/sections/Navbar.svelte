@@ -11,21 +11,20 @@
 	let scrollDelta = 0;
 	let previousScrollposition = scrollY;
 
-	onMount(() => {
-		// setTimeout(() => {
-		// 	showNavbar();
-		// }, 5000);
-		// window.onscroll = async () => {
-		// 	autoHideNavbar();
-		// };
+	// onMount(() => {
+	// setTimeout(() => {
+	// 	showNavbar();
+	// }, 5000);
+	// window.onscroll = async () => {
+	// 	autoHideNavbar();
+	// };
+	// startFadeSequence();
+	// });
 
-		startFadeSequence();
-	});
-
-	function showNavbar() {
-		hamburgerMenuExpanded.set(false);
-		backgroundClasses = '';
-	}
+	// function showNavbar() {
+	// 	hamburgerMenuExpanded.set(false);
+	// 	backgroundClasses = '';
+	// }
 
 	function autoHideNavbar() {
 		let currentScrollPosition = scrollY;
@@ -48,22 +47,25 @@
 
 <svelte:window bind:scrollY />
 
-<section bind:this={navbar} class="fixed bottom-0 md:sticky">
+<section bind:this={navbar} class="z-10 sticky w-full">
 	<!-- Nav links -->
 	<div
-		class="relative flex flex-row w-full justify-evenly md:justify-end transition-transform duration-[600ms]"
+		class="relative flex flex-row w-full justify-evenly md:justify-center transition-transform duration-[850ms] bg-dark/75 md:bg-dark border-b"
 		class:translate-y-[-5rem]={!$fadeSequence.navbar}
 		class:translate-y-0={$fadeSequence.navbar}
 	>
 		{#each navLinks as link}
-			<a href={link.link} class="shrink-0 hover:md:blur-[1px] hover:md:bg-slate-500 py-5 md:p-5">
+			<a
+				href={link.link}
+				class="shrink-0 md:blur-[1px] hover:md:blur-0 transition-all hover:md:bg-slate-600 py-5 md:p-5"
+			>
 				<h3>
 					{link.text.toUpperCase()}
 				</h3>
 			</a>
 		{/each}
-
-		<!-- Hamburger menu -->
-		<!-- <Hamburger {isBgTransparent} /> -->
 	</div>
+	<div
+		class="absolute h-[0.75px] bottom-0 left-0 w-full bg-gradient-to-r from-dark via-transparent to-dark"
+	></div>
 </section>

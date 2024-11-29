@@ -1,58 +1,90 @@
-import type { Project } from './types';
+import type { Project } from '$lib/types';
 
-const githubApiLink = 'https://github.com/DigitalCreationsCo';
-
+const githubApiLink = 'https://api.github.com/repos/digitalcreationsco';
 const initialProjects: Project[] = [
 	{
 		id: 0,
+		slug: 'api-gateway',
 		name: 'Express api-gateway',
 		url: `${githubApiLink}/nodeJsApiGateway`,
+		liveUrl: `${githubApiLink}/nodeJsApiGateway`,
 		description: '',
-		imageUrl: 'https://github.com/ikhsan3adi/Flutter-Auction-App/raw/master/images/banner.png',
-		readmeUrl: 'https://raw.githubusercontent.com/ikhsan3adi/flutter-auction-app/master/README.md',
-		tags: ['flutter']
+		imageUrl: '',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/nodeJsApiGateway/refs/heads/master/README.md',
+		tags: ['gateway', 'api', 'backend', 'node.js']
 	},
 	{
 		id: 1,
-		name: 'Sistem Perpustakaan QR Code',
-		url: `${githubApiLink}/sistem-perpustakaan-qr-code`,
+		slug: 'tiny-mail',
+		name: 'Tiny Mail',
+		url: `${githubApiLink}/TinyMail`,
+		liveUrl: `https://tiny-mail.vercel.app`,
 		description: '',
 		imageUrl:
-			'https://github.com/ikhsan3adi/sistem-perpustakaan-qr-code/raw/main/screenshots/home.png',
+			'https://raw.githubusercontent.com/DigitalCreationsCo/TinyMail/refs/heads/main/public/tiny-mail-image-preview.png',
 		readmeUrl:
-			'https://raw.githubusercontent.com/ikhsan3adi/sistem-perpustakaan-qr-code/main/README.md',
-		tags: ['codeigniter', 'php']
+			'https://raw.githubusercontent.com/DigitalCreationsCo/TinyMail/refs/heads/main/README.md',
+		tags: ['email', 'react']
 	},
 	{
 		id: 2,
-		name: 'Celenganku App Clone',
-		url: `${githubApiLink}/flutter-celenganku-clone`,
+		slug: 'web-form',
+		name: 'Web Form Showcase',
+		url: `${githubApiLink}/welcome-form`,
+		liveUrl: 'https://welcomeform.netlify.app',
 		description: '',
 		imageUrl:
-			'https://github.com/ikhsan3adi/flutter_celenganku_app_clone/raw/master/screenshots/screenshot-1.png',
+			'',
 		readmeUrl:
-			'https://raw.githubusercontent.com/ikhsan3adi/flutter-celenganku-clone/master/README.md',
-		tags: ['flutter']
+			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/README.md',
+		tags: ['form', 'frontend', 'react']
 	},
 	{
 		id: 3,
-		name: 'Sistem Absensi QR Code',
-		url: `${githubApiLink}/absensi-sekolah-qr-code`,
+		slug: 'gras-retail-saas',
+		name: 'Gras Retail Business Application',
+		url: `${githubApiLink}/cannabis-platform-monorepo`,
+		liveUrl: 'https://app.gras.live',
 		description: '',
 		imageUrl:
-			'https://github.com/ikhsan3adi/absensi-sekolah-qr-code/raw/master/screenshots/hero.png',
+			'',
 		readmeUrl:
-			'https://raw.githubusercontent.com/ikhsan3adi/absensi-sekolah-qr-code/master/README.md',
-		tags: ['codeigniter', 'php']
+			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/master/README.md?token=GHSAT0AAAAAAC24QLMWQKWAW7WEY66ISALSZ2JOQ4A',
+		tags: ['SaaS', 'react']
 	},
 	{
 		id: 4,
-		name: 'Portfolio website',
-		url: `${githubApiLink}/ikhsan3adi.github.io`,
+		slug: 'parallax-scroll',
+		name: 'Parallax Scroll Demo',
+		url: `${githubApiLink}/motion-scroll`,
+		liveUrl: 'https://parallaxscrolldemonstration.netlify.app',
 		description: '',
-		imageUrl: 'https://github.com/ikhsan3adi/ikhsan3adi.github.io/raw/main/images/preview.png',
-		readmeUrl: 'https://raw.githubusercontent.com/ikhsan3adi/ikhsan3adi.github.io/master/README.md',
-		tags: ['html', 'typescript']
+		imageUrl:
+			'',
+		readmeUrl:
+			'https://raw.githubusercontent.com/DigitalCreationsCo/motion-scroll/refs/heads/main/README.md',
+		tags: ['html', 'css', 'motion', 'animation']
+	},
+	{
+		id: 5,
+		slug: 'portfolio',
+		name: 'Portfolio website',
+		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
+		liveUrl: 'https://bryantmejia.com',
+		description: '',
+		imageUrl: '',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/master/README.md',
+		tags: ['html', 'svelte', 'frontend']
+	},
+	{
+		id: 6,
+		slug: 'food-delivery',
+		name: 'Food Delivery Application',
+		url: `${githubApiLink}/food-delivery-app-react-native`,
+		description: '',
+		imageUrl: '',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/food-delivery-app-react-native/refs/heads/master/README.md',
+		tags: ['mobile', 'react native']
 	}
 ];
 

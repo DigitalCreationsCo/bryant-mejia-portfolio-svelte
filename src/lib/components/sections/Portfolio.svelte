@@ -1,14 +1,20 @@
 <script lang="ts">
-	import { type ProjectService, initialProjects, projects } from '$lib/api/projects';
-
+	import { type ProjectService, initialProjects } from '$lib/api/projects';
+	import { projects } from '$lib/store/projects';
 	import ProjectCard from '$lib/components/cards/ProjectCard.svelte';
 	import ProjectCardLoading from '$lib/components/cards/ProjectCardLoading.svelte';
 	import ProjectCardError from '$lib/components/cards/ProjectCardError.svelte';
-
 	import Saos from 'saos';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	export let fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>;
 	export let projectService: ProjectService;
+
+	onMount(() => {
+		const currentUrl = $page.url.pathname;
+		sessionStorage.setItem('lastUrl', currentUrl);
+	});
 
 	let isIntersecting = false;
 
@@ -41,25 +47,16 @@
 	}
 </script>
 
-<section use:checkIntersecting>
-	<div class="w-75 mx-auto">
-		<Saos animation={'scale-up-center 1s cubic-bezier(0.4, 0, 0.2, 1) both'} once>
-			<h1 class="text-white mx-auto" id="portfolio">Projects</h1>
-		</Saos>
-
-		<!-- Projects -->
-		<Saos animation={'scale-up-center 1s cubic-bezier(0.4, 0, 0.2, 1) both'} once>
-			<div class="d-flex flex-wrap flex-column flex-sm-row">
-				{#if $projects.length == 0}
-					<ProjectCardLoading />
-				{:else if $projects.length == 1 && ($projects[0].name === 'error' || $projects[0].name === 'limit')}
-					<ProjectCardError project={$projects[0]} />
-				{:else}
-					{#each $projects as project}
-						<ProjectCard {project} />
-					{/each}
-				{/if}
-			</div>
-		</Saos>
+<div use:checkIntersecting class="px-10 py-2 md:p-10 mx-auto border-t-[33px] border-blue">
+	<div class="flex flex-col">
+		{#if $projects.length == 0}
+			<ProjectCardLoading />
+		{:else if $projects.length == 1 && ($projects[0].name === 'error' || $projects[0].name === 'limit')}
+			<ProjectCardError project={$projects[0]} />
+		{:else}
+			{#each $projects as project}
+				<ProjectCard {project} />
+			{/each}
+		{/if}
 	</div>
-</section>
+</div>

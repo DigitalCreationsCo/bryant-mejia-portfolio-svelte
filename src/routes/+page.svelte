@@ -1,16 +1,29 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Navbar from '$lib/components/sections/Navbar.svelte';
 	import Hero from '$lib/components/sections/Hero.svelte';
-	import About from '$lib/components/sections/About.svelte';
-	import Portfolio from '$lib/components/sections/Portfolio.svelte';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	export let data: PageData;
+
+	let isFirstLoad = true;
+	onMount(() => {
+		isFirstLoad = false;
+	});
 </script>
 
-<main>
-	<Navbar />
+<section
+	id="hero"
+	class="grow"
+	class:no-transition={isFirstLoad}
+	in:fade|local={{ duration: 1000 }}
+	out:fade|local={{ duration: 50 }}
+>
 	<Hero />
-	<!-- <About />
-	<Portfolio fetch={data.fetch} projectService={data.projectService} /> -->
-</main>
+</section>
+
+<style>
+	.no-transition {
+		animation: none !important;
+	}
+</style>
