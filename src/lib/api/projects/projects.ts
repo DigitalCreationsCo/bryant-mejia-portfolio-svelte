@@ -11,7 +11,7 @@ const initialProjects: Project[] = [
 		description: '',
 		imageUrl: '',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/nodeJsApiGateway/refs/heads/master/README.md',
-		tags: ['gateway', 'api', 'backend', 'node.js']
+		tags: ['Gateway', 'API', 'Backend', 'Node.js']
 	},
 	{
 		id: 1,
@@ -24,7 +24,7 @@ const initialProjects: Project[] = [
 			'https://raw.githubusercontent.com/DigitalCreationsCo/TinyMail/refs/heads/main/public/tiny-mail-image-preview.png',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/TinyMail/refs/heads/main/README.md',
-		tags: ['email', 'react']
+		tags: ['Email', 'WYSIWYG Editor', 'UGC', 'React']
 	},
 	{
 		id: 2,
@@ -37,7 +37,7 @@ const initialProjects: Project[] = [
 			'',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/README.md',
-		tags: ['form', 'frontend', 'react']
+		tags: ['Form', 'Frontend', 'React']
 	},
 	{
 		id: 3,
@@ -50,7 +50,7 @@ const initialProjects: Project[] = [
 			'',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/production/README.md?token=GHSAT0AAAAAAC24QLMWQKWAW7WEY66ISALSZ2JOQ4A',
-		tags: ['SaaS', 'react']
+		tags: ['SaaS', 'React']
 	},
 	{
 		id: 4,
@@ -63,21 +63,10 @@ const initialProjects: Project[] = [
 			'',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/motion-scroll/refs/heads/main/README.md',
-		tags: ['html', 'css', 'motion', 'animation']
+		tags: ['Html', 'Css', 'Motion', 'Animation']
 	},
 	{
 		id: 5,
-		slug: 'portfolio',
-		name: 'Portfolio website',
-		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
-		liveUrl: 'https://bryantmejia.com',
-		description: '',
-		imageUrl: '',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
-		tags: ['html', 'svelte', 'frontend']
-	},
-	{
-		id: 6,
 		slug: 'food-delivery',
 		name: 'Food Delivery Application',
 		url: `${githubApiLink}/food-delivery-app-react-native`,
@@ -85,8 +74,63 @@ const initialProjects: Project[] = [
 		description: '',
 		imageUrl: '',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/food-delivery-app-react-native/refs/heads/master/README.md',
-		tags: ['mobile', 'react native']
-	}
+		tags: ['Mobile', 'React Native']
+	},
+	{
+		id: 6,
+		slug: 'portfolio-v5',
+		name: 'Bryant Mejia Portfolio',
+		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
+		liveUrl: 'https://bryantmejia.com',
+		description: '',
+		imageUrl: '',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
+		tags: ['Html', 'Svelte', 'SSR', 'Frontend']
+	},
+	{
+		id: 7,
+		slug: 'portfolio-v4',
+		name: 'Portfolio V4',
+		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
+		liveUrl: 'https://portfolio.v4.bryantmejia.com',
+		description: '',
+		imageUrl: '',
+		readmeUrl: '',
+		tags: ['Html', 'Css', 'Nocode']
+	},
+	{
+		id: 8,
+		slug: 'portfolio-v3',
+		name: 'Portfolio V3',
+		url: `${githubApiLink}/bryant-mejia-portfolio-next`,
+		liveUrl: 'https://portfolio.v3.bryantmejia.com',
+		description: '',
+		imageUrl: '',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-next/refs/heads/main/README.md',
+		tags: ['React', 'SSR']
+	},
+	{
+		id: 9,
+		slug: 'portfolio-v2',
+		name: 'Portfolio V2',
+		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
+		liveUrl: 'https://portfolio.v2.bryantmejia.com',
+		description: '',
+		imageUrl: '',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
+		tags: ['React', 'SPA']
+	},
+	{
+		id: 10,
+		slug: 'portfolio-v1',
+		name: 'Portfolio V1',
+		url: `${githubApiLink}/htmlresume`,
+		liveUrl: 'https://portfolio.v1.bryantmejia.com',
+		description: '',
+		imageUrl: '',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/htmlresume/refs/heads/master/README.md?token=GHSAT0AAAAAAC24QLMWYIOLUI4UDUAR4OLAZ2KFAUA',
+		tags: ['Html', 'Css']
+	},
 ];
 
 export { initialProjects };

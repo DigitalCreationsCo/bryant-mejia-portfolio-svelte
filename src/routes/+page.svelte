@@ -12,6 +12,14 @@
 	});
 </script>
 
+<svelte:head>
+	<title>{`Bryant Mejia | Software Developer`}</title>
+	<meta
+		name="description"
+		content="Bryant Mejia is a software developer building the data-driven user experiences of the future."
+	/>
+</svelte:head>
+
 <section
 	id="hero"
 	class="grow"

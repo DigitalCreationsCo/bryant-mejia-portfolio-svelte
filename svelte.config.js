@@ -11,7 +11,7 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			entries: ["*", "/bio", "/contact", "/portfolio", "/technical"],
-			// handleHttpError: 'warn',
+			// handleHttpError: 'warn', // helpful for debugging build errors
 		}
 	}
 };
