@@ -1,71 +1,104 @@
 <script>
-	export let starCount = 1150;
+	import { onMount, onDestroy } from 'svelte';
+
+	export let starCount = 10000;
 	export let minSize = 0.1;
 	export let maxSize = 2;
-	export let minDuration = 5000;
-	export let maxDuration = 30000;
+	export let minDuration = 2000;
+	export let maxDuration = 10000;
 
+	let canvas;
+	let ctx;
+	let animationFrameId;
 	let stars = [];
-	let containerWidth;
-	let containerHeight;
-	let containerElement;
 
-	// Generate a single star's properties
-	function generateStar() {
-		return {
-			x: Math.random() * 100,
-			y: Math.random() * 100,
-			size: minSize + Math.random() * (maxSize - minSize),
-			duration: minDuration + Math.random() * (maxDuration - minDuration),
-			delay: Math.random() * -2000,
-			color: Math.random() > 0.75 ? 'white' : '#50729A',
-			id: Math.random() // Unique identifier for keyed each block
-		};
+	class Star {
+		constructor() {
+			this.reset();
+		}
+
+		reset() {
+			this.x = Math.random() * window.innerWidth;
+			this.y = Math.random() * window.innerHeight;
+			this.size = minSize + Math.random() * (maxSize - minSize);
+			this.duration = minDuration + Math.random() * (maxDuration - minDuration);
+			this.color = Math.random() > 0.75 ? 'white' : '#50729A';
+			this.startTime = Date.now() + Math.random() * -2000;
+		}
+
+		update() {
+			const elapsed = (Date.now() - this.startTime) % this.duration;
+			const progress = elapsed / this.duration;
+
+			// Calculate opacity using a smooth sine wave
+			this.opacity = Math.sin(progress * Math.PI);
+
+			// Reset star if cycle completed
+			if (progress >= 1) {
+				this.reset();
+			}
+		}
+
+		draw(ctx) {
+			ctx.fillStyle = this.color;
+			ctx.globalAlpha = this.opacity;
+			ctx.fillRect(this.x, this.y, this.size, this.size);
+		}
 	}
 
-	// Generate initial star array
-	function generateStars() {
-		stars = Array(starCount).fill().map(generateStar);
+	function initStars() {
+		stars = Array(starCount)
+			.fill()
+			.map(() => new Star());
 	}
 
-	function handleAnimationIteration(index) {
-		stars[index] = generateStar();
-		stars = stars; // Trigger reactivity
+	function resizeCanvas() {
+		if (canvas) {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+
+			// Reinitialize stars with new dimensions
+			initStars();
+		}
 	}
 
-	// Generate initial stars when props change
-	$: {
-		starCount;
-		minSize;
-		maxSize;
-		if (containerElement) generateStars();
+	function animate() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		// Update and draw all stars
+		for (let star of stars) {
+			star.update();
+			star.draw(ctx);
+		}
+
+		animationFrameId = requestAnimationFrame(animate);
 	}
+
+	onMount(() => {
+		ctx = canvas.getContext('2d');
+
+		// Handle window resize
+		window.addEventListener('resize', resizeCanvas);
+		resizeCanvas();
+
+		// Initialize stars
+		initStars();
+
+		// Start animation loop
+		animate();
+	});
+
+	onDestroy(() => {
+		window.removeEventListener('resize', resizeCanvas);
+		if (animationFrameId) {
+			cancelAnimationFrame(animationFrameId);
+		}
+	});
 </script>
 
-<div
-	class="stars-container"
-	bind:this={containerElement}
-	bind:clientWidth={containerWidth}
-	bind:clientHeight={containerHeight}
->
+<div class="stars-container">
+	<canvas bind:this={canvas} class="stars-canvas" />
 	<slot />
-	<div class="stars-overlay">
-		{#each stars as star, i (star.id)}
-			<div
-				class="star"
-				style="
-			left: {star.x}%;
-			top: {star.y}%;
-			width: {star.size}px;
-			height: {star.size}px;
-			animation-duration: {star.duration}ms;
-			animation-delay: {star.delay}ms;
-			background-color: {star.color};
-		  "
-				on:animationiteration={() => handleAnimationIteration(i)}
-			></div>
-		{/each}
-	</div>
 </div>
 
 <style>
@@ -75,7 +108,7 @@
 		height: 100%;
 	}
 
-	.stars-overlay {
+	.stars-canvas {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -83,25 +116,5 @@
 		height: 100%;
 		pointer-events: none;
 		z-index: 10;
-	}
-
-	.star {
-		position: absolute;
-		border-radius: 20%;
-		background-color: white;
-		animation: twinkle infinite;
-		transition: all 3s ease-in-out;
-	}
-
-	@keyframes twinkle {
-		0% {
-			opacity: 0;
-		}
-		50% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
 	}
 </style>
