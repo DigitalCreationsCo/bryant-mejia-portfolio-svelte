@@ -4,7 +4,8 @@ interface Project {
 	slug: string;
 	url: string;
 	liveUrl: string;
-	description?: string;
+	description: string;
+	longDescription?: string;
 	imageUrl: string;
 	imageText?: string;
 	readmeUrl?: string;

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Saos from 'saos';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import TwinklingStars from '$lib/components/stars.svelte';

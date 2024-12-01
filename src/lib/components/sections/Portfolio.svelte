@@ -47,7 +47,7 @@
 	}
 </script>
 
-<div use:checkIntersecting class="px-10 py-2 md:p-10 mx-auto border-t-[33px] border-blue">
+<div use:checkIntersecting class="px-10 py-2 md:p-10 mx-auto border-t-[11px] border-blue">
 	<div class="flex flex-col">
 		{#if $projects.length == 0}
 			<ProjectCardLoading />

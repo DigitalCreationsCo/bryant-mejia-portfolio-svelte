@@ -10,7 +10,7 @@
 </script>
 
 <div in:slide out:scale class="md:hover:bg-blue mb-5 px-1">
-	<a href="/projects/{project.slug}" target="_blank">
+	<a href="/projects/{project.slug}">
 		<!-- Project description -->
 		<div>
 			<h2 class="text-lg mb-2">{project.name}</h2>

@@ -12,6 +12,7 @@ export function load({ params, fetch }) {
     }
 
     const project: Project | undefined = initialProjects.find((project) => project.slug === params.slug);
+    console.log('project ', params.slug)
     if (project === undefined) throw error(404, 'Project not found');
 
     const projectService: ProjectService = new ProjectService();
@@ -20,13 +21,5 @@ export function load({ params, fetch }) {
 }
 
 export const entries: EntryGenerator = () => {
-    return [
-        { slug: 'api-gateway' },
-        { slug: 'tiny-mail' },
-        // { slug: 'another-blog-post' },
-        // { slug: 'another-blog-post' },
-        // { slug: 'another-blog-post' },
-        // { slug: 'another-blog-post' },
-        // { slug: 'another-blog-post' }
-    ];
+    return initialProjects.map(({ slug }) => ({ slug }))
 };

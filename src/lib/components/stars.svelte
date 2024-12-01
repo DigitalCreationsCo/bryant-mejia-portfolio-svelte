@@ -1,5 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
+	import { browser } from '$app/environment';
 
 	export let starCount = 10000;
 	export let minSize = 0.1;
@@ -18,12 +19,14 @@
 		}
 
 		reset() {
-			this.x = Math.random() * window.innerWidth;
-			this.y = Math.random() * window.innerHeight;
-			this.size = minSize + Math.random() * (maxSize - minSize);
-			this.duration = minDuration + Math.random() * (maxDuration - minDuration);
-			this.color = Math.random() > 0.75 ? 'white' : '#50729A';
-			this.startTime = Date.now() + Math.random() * -2000;
+			if (browser) {
+				this.x = Math.random() * window.innerWidth;
+				this.y = Math.random() * window.innerHeight;
+				this.size = minSize + Math.random() * (maxSize - minSize);
+				this.duration = minDuration + Math.random() * (maxDuration - minDuration);
+				this.color = Math.random() > 0.75 ? 'white' : '#50729A';
+				this.startTime = Date.now() + Math.random() * -2000;
+			}
 		}
 
 		update() {
@@ -90,6 +93,7 @@
 
 	onDestroy(() => {
 		window.removeEventListener('resize', resizeCanvas);
+
 		if (animationFrameId) {
 			cancelAnimationFrame(animationFrameId);
 		}
@@ -97,8 +101,10 @@
 </script>
 
 <div class="stars-container">
-	<canvas bind:this={canvas} class="stars-canvas" />
-	<slot />
+	{#if browser}
+		<canvas bind:this={canvas} class="stars-canvas" />
+		<slot />
+	{/if}
 </div>
 
 <style>
