@@ -1,7 +1,7 @@
 # SvelteKit Portfolio Project
 
 ## Overview
-This project is a **personal portfolio website** built using **SvelteKit**, a modern framework for building highly optimized web applications. It showcases your professional experience, projects, skills, and contact information in a clean and responsive design. The goal of this portfolio is to effectively present your work and leave a lasting impression on visitors, including potential employers or clients.
+This project is a **personal portfolio website** built using **SvelteKit**, a modern framework for building highly optimized web applications. It showcases my professional experience, projects, skills, and contact information in a responsive design. The goal of this portfolio is to effectively present my work and leave a lasting impression on visitors, including potential employers.
 
 ## Key Features
 - **Responsive Design**: 
