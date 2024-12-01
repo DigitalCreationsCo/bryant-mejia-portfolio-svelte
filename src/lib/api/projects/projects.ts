@@ -53,6 +53,19 @@ const initialProjects: Project[] = [
 		tags: ['SaaS', 'React']
 	},
 	{
+		id: 3,
+		slug: 'ml-concepts-explorer',
+		name: 'Machine Learning Concepts Explorer',
+		url: `${githubApiLink}/ml-concepts-explorer`,
+		liveUrl: 'https://ml-concepts-explorer-sff2.vercel.app',
+		description: '',
+		imageUrl:
+			'',
+		readmeUrl:
+			'https://raw.githubusercontent.com/DigitalCreationsCo/ml-concepts-explorer/refs/heads/main/README.md',
+		tags: ['ML', 'React']
+	},
+	{
 		id: 4,
 		slug: 'parallax-scroll',
 		name: 'Parallax Scroll Demo',
