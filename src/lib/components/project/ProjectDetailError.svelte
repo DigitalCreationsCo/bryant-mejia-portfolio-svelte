@@ -49,7 +49,7 @@
 				<p
 					class="dark:bg-slate-800 border-slate-800 dark:text-slate-300 dark:border-slate-300 max-sm:text-sm px-2 sm:px-4 py-1 h-max border-2"
 				>
-					#error
+					Error
 				</p>
 			</div>
 

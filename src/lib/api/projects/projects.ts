@@ -66,7 +66,6 @@ Typescript is used throughout the application, providing static typing to improv
 		url: `${githubApiLink}/ml-concepts-explorer`,
 		liveUrl: 'https://ml-concepts-explorer-sff2.vercel.app',
 		description: 'Machine Learning Concepts Explorer is a React application that provides explanations of various ML/DL concepts using animations and interactive elements.',
-		longDescription: 'Machine Learning Concepts Explorer is a React application that provides explanations of various ML/DL concepts using animations and interactive elements. The visualizations and animations help to make these complex topics more approachable.',
 		imageUrl:
 			'',
 		readmeUrl:
@@ -105,8 +104,8 @@ Typescript is used throughout the application, providing static typing to improv
 		name: 'Bryant Mejia Portfolio',
 		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
 		liveUrl: 'https://bryantmejia.com',
-		description: '',
-		imageUrl: '',
+		description: 'Bryant Mejia developer portfolio website built using SvelteKit.',
+		imageUrl: 'This project is a **personal portfolio website** built using **SvelteKit**, a modern framework for building highly optimized web applications. It showcases my professional experience, projects, skills, and contact information in a responsive design. The goal of this portfolio is to effectively present my work and leave a lasting impression on visitors, including potential employers.',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
 		tags: ['Html', 'Svelte', 'SSR', 'Frontend']
 	},
@@ -115,8 +114,8 @@ Typescript is used throughout the application, providing static typing to improv
 		slug: 'portfolio-v4',
 		name: 'Portfolio V4',
 		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
-		liveUrl: 'https://portfolio.v4.bryantmejia.com',
-		description: '',
+		liveUrl: 'https://bryantmejia.carrd.co/',
+		description: 'A portfolio website built with no-code tools.',
 		imageUrl: '',
 		readmeUrl: '',
 		tags: ['Html', 'Css', 'Nocode']
@@ -127,7 +126,7 @@ Typescript is used throughout the application, providing static typing to improv
 		name: 'Portfolio V3',
 		url: `${githubApiLink}/bryant-mejia-portfolio-next`,
 		liveUrl: 'https://portfolio.v3.bryantmejia.com',
-		description: '',
+		description: 'Portfolio website built using React and Next.js, and deployed using Vercel platform.',
 		imageUrl: '',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-next/refs/heads/main/README.md',
 		tags: ['React', 'SSR']
@@ -138,7 +137,7 @@ Typescript is used throughout the application, providing static typing to improv
 		name: 'Portfolio V2',
 		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
 		liveUrl: 'https://portfolio.v2.bryantmejia.com',
-		description: '',
+		description: 'Portfolio SPA website built using React, and served from Google Cloud Platform simple storage.',
 		imageUrl: '',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
 		tags: ['React', 'SPA']
@@ -149,7 +148,7 @@ Typescript is used throughout the application, providing static typing to improv
 		name: 'Portfolio V1',
 		url: `${githubApiLink}/htmlresume`,
 		liveUrl: 'https://portfolio.v1.bryantmejia.com',
-		description: '',
+		description: 'Portfolio webpage created using html and css, and served from S3 storage.',
 		imageUrl: '',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/htmlresume/refs/heads/master/README.md?token=GHSAT0AAAAAAC24QLMWYIOLUI4UDUAR4OLAZ2KFAUA',
 		tags: ['Html', 'Css']
