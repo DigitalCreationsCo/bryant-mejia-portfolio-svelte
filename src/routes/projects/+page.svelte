@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData } from '../portfolio/$types';
 	import Portfolio from '$lib/components/sections/Portfolio.svelte';
 	import { fade } from 'svelte/transition';
 

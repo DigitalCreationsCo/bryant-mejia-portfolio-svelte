@@ -10,7 +10,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		prerender: {
-			entries: ["*", "/bio", "/contact", "/portfolio", "/technical"],
+			entries: ["*", "/bio", "/contact", "/projects", "/technical"],
 			// handleHttpError: 'warn', // helpful for debugging build errors
 		}
 	}
