@@ -12,11 +12,11 @@
 	<h1 class="text-lg mb-6 md:mb-8 lg:mb-12 xl:mb-16">{project.name}</h1>
 	<!-- Hero section -->
 	<div
-		class="w-full grid grid-cols-1 grid-flow-row grid-rows-2 lg:flex lg:flex-row-reverse lg:justify-between gap-4 md:gap-8 lg:gap-12 mb-24 lg:mb-32"
+		class="w-full flex flex-col lg:flex-row-reverse lg:justify-between gap-4 md:gap-8 lg:gap-12 mb-24 lg:mb-32"
 	>
-		<!-- Image preview -->
-		<div class="w-full border flex items-center">
-			<img class="w-full" src={project.imageUrl} alt="Preview" />
+		<div class="w-full">
+			<!-- Image preview -->
+			<img class="w-full aspect-[2/1] object-cover" src={project.imageUrl} alt="Preview" />
 		</div>
 
 		<!-- Project description -->
@@ -68,8 +68,7 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- README.md -->
-	<hr class="mt-16 border border-slate-700 dark:border-slate-300" />
-	<hr class="mb-16 md:mb-24 border border-slate-700 dark:border-slate-300" />
 </div>
+<!-- README.md -->
+<hr class="mt-16 border border-slate-700 dark:border-slate-300" />
+<hr class="mb-16 md:mb-24 border border-slate-700 dark:border-slate-300" />

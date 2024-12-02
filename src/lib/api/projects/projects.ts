@@ -35,7 +35,7 @@ const initialProjects: Project[] = [
 		url: `${githubApiLink}/welcome-form`,
 		liveUrl: 'https://welcomeform.netlify.app',
 		description: 'A simple and effective web form solution using modern web technologies, built with React and Next.js.',
-		longDescription: `This project demonstrates a simple and effective web form solution using modern web technologies, built with React and Next.js. It showcases advanced form handling techniques, including validation, dynamic rendering, and user interactions.`,
+		longDescription: `This project demonstrates a simple and effective web form solution using modern web technologies, built with React and Next.js. It showcases advanced form handling techniques, including validation, dynamic rendering, and user interactions. The form state is persisted using React Context API.`,
 		imageUrl:
 			'',
 		readmeUrl:
