@@ -49,7 +49,8 @@ const initialProjects: Project[] = [
 		url: `${githubApiLink}/cannabis-platform-monorepo`,
 		liveUrl: 'https://app.gras.live',
 		description: 'Retail marketing SaaS platform. The architecture is distributed microservices hosted in a Google Cloud container cluster. Scalable services feature Load Balancing, Ingress Controller, and feature-rich edge API Gateway for efficiently routing high traffic load.',
-		longDescription: `The platform is designed for scalability, utilizing load balancing, an ingress controller, and a feature-rich edge API Gateway to efficiently manage high traffic volumes and ensure seamless routing between services. 
+		longDescription: `Retail marketing SaaS platform. The architecture is distributed microservices hosted in a Google Cloud container cluster. Scalable services feature Load Balancing, Ingress Controller, and feature-rich edge API Gateway for efficiently routing high traffic load. 
+The platform is designed for scalability, utilizing load balancing, an ingress controller, and a feature-rich edge API Gateway to efficiently manage high traffic volumes and ensure seamless routing between services. 
 The project implements Terraform modules to automate provisioning and management of cloud resources.  
 The codebase follows a monorepo structure, promoting consistency and simplifying dependency management across microservices, while reusable code modules ensure maintainability and reduce duplication.  
 Typescript is used throughout the application, providing static typing to improve code quality, reduce runtime errors, and enhance developer productivity through better tooling and IDE support.`,

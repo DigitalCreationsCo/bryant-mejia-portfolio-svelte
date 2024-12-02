@@ -30,7 +30,7 @@ class ProjectService {
 					name: project.name,
 					url: project.url,
 					liveUrl: project.liveUrl,
-					description: json.description,
+					description: project.description || json.description,
 					imageUrl: project.imageUrl,
 					readmeUrl: project.readmeUrl,
 					tags: [...project.tags, json?.language?.toLowerCase()].filter(Boolean),
@@ -122,8 +122,6 @@ class ProjectService {
 		fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>;
 	}) {
 		try {
-			// console.info('hello')
-			// console.info('project, ', project.url)
 			const response = await fetch(project.url, {
 				method: 'GET',
 				headers: {
@@ -141,11 +139,12 @@ class ProjectService {
 					slug: project.slug,
 					name: project.name,
 					url: project.url,
-					description: json.description,
+					description: project.description || json.description,
+					longDescription: project.longDescription || project.description || json.description,
 					imageUrl: project.imageUrl,
 					tags: [...project.tags, json?.language?.toLowerCase()].filter(Boolean),
 					repositoryUrl: json['svn_url'],
-					hasLiveUrl: project.liveUrl || json.homepage || false,
+					hasLiveUrl: Boolean(project.liveUrl || json.homepage || false),
 					liveUrl: project.liveUrl || json.homepage,
 					readmeUrl: project.readmeUrl,
 					starsCount: json.stargazers_count,
