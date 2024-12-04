@@ -6,9 +6,11 @@
     font-family: 'JetBrains Mono';
     src: url('/fonts/JetBrainsMono.ttf');
     font-style: normal;
+    font-size: 5px;
 }
 
 body {
+    font-size: 12px;
     background: var(--dark);
     color: #e9f4ff;
     font-family: "JetBrains Mono", Arial, Helvetica, sans-serif;

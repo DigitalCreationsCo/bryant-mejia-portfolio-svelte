@@ -10,7 +10,7 @@ const initialProjects: Project[] = [
 		liveUrl: `${githubApiLink}/nodeJsApiGateway`,
 		description: `A fully-featured API Gateway built for the Node.js javascript runtime using Express.js framework. `,
 		longDescription: `A fully-featured API Gateway built for the Node.js javascript runtime using Express.js framework. The application leverages the Axios library for handling requests and includes a service registry for dynamically managing registered APIs.`,
-		imageUrl: '',
+		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/nodeJsApiGateway/refs/heads/master/nodejs-api-gateway-image-preview.png',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/nodeJsApiGateway/refs/heads/master/README.md',
 		tags: ['Gateway', 'API', 'Backend', 'Node.js']
 	},
@@ -37,7 +37,7 @@ const initialProjects: Project[] = [
 		description: 'A simple and effective web form solution using modern web technologies, built with React and Next.js.',
 		longDescription: `This project demonstrates a simple and effective web form solution using modern web technologies, built with React and Next.js. It showcases advanced form handling techniques, including validation, dynamic rendering, and user interactions. The form state is persisted using React Context API.`,
 		imageUrl:
-			'',
+			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/web-form-image-preview.png',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/README.md',
 		tags: ['Form', 'Frontend', 'React']
@@ -55,7 +55,7 @@ The project implements Terraform modules to automate provisioning and management
 The codebase follows a monorepo structure, promoting consistency and simplifying dependency management across microservices, while reusable code modules ensure maintainability and reduce duplication.  
 Typescript is used throughout the application, providing static typing to improve code quality, reduce runtime errors, and enhance developer productivity through better tooling and IDE support.`,
 		imageUrl:
-			'',
+			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/production/static/assets/images/gras-image-preview.png',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/production/README.md?token=GHSAT0AAAAAAC24QLMWQKWAW7WEY66ISALSZ2JOQ4A',
 		tags: ['SaaS', 'React']
@@ -68,10 +68,10 @@ Typescript is used throughout the application, providing static typing to improv
 		liveUrl: 'https://ml-concepts-explorer-sff2.vercel.app',
 		description: 'Machine Learning Concepts Explorer is a React application that provides explanations of various ML/DL concepts using animations and interactive elements.',
 		imageUrl:
-			'',
+			'https://raw.githubusercontent.com/DigitalCreationsCo/ml-concepts-explorer/refs/heads/main/ml-concepts-explorer-image-preview.png',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/ml-concepts-explorer/refs/heads/main/README.md',
-		tags: ['ML', 'React']
+		tags: ['Machine Learning', 'Artificial Intelligence', 'React']
 	},
 	{
 		id: 4,
@@ -82,22 +82,22 @@ Typescript is used throughout the application, providing static typing to improv
 		description: 'This project is a Parallax Scrolling and Snap Scroll Animation Demo, showcasing modern web design and animation techniques.',
 		longDescription: `This project is a Parallax Scrolling and Snap Scroll Animation Demo, showcasing modern web design and animation techniques. It presents a visually engaging futuristic theme centered around "Metal" concepts, portraying innovation, technology, and digital transformation. The user experience is emphasized by the parallax scrolling effects, creating an intuitive and dynamic storytelling format`,
 		imageUrl:
-			'',
+			'https://raw.githubusercontent.com/DigitalCreationsCo/motion-scroll/refs/heads/main/8.jpg',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/motion-scroll/refs/heads/main/README.md',
 		tags: ['Html', 'Css', 'Motion', 'Animation']
 	},
 	{
 		id: 5,
-		slug: 'food-delivery',
-		name: 'Food Delivery Application',
-		url: `${githubApiLink}/food-delivery-app-react-native`,
+		slug: 'supply-chain-optimizer',
+		name: 'Supply Chain Optimizer Application',
+		url: `${githubApiLink}/Supply-Chain-Optimizer-Angular`,
 		liveUrl: '',
-		description: 'A food delivery mobile application frontend built with React Native and Expo.',
-		longDescription: 'A food delivery mobile application frontend built with React Native and Expo. The project follows a clean architecture approach to ensure organized, scalable and maintainable application code. The application leverages React Navigation to structure and navigate the user interface, providing a seamless and intuitive user experience.',
-		imageUrl: '',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/food-delivery-app-react-native/refs/heads/master/README.md',
-		tags: ['Mobile', 'React Native']
+		description: 'Costs and emissions analysis for supply chain built using Angular 19.',
+		longDescription: 'This Angular application helps track and analyze costs and emissions for supply chain routes. It allows users to calculate total emissions based on geographic data and transportation segments.',
+		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/public/supply-chain-optimizer-image-preview.png',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/README.md',
+		tags: ['Angular', 'Analytics', 'Reactive']
 	},
 	{
 		id: 6,
@@ -106,7 +106,8 @@ Typescript is used throughout the application, providing static typing to improv
 		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
 		liveUrl: 'https://bryantmejia.com',
 		description: 'Bryant Mejia developer portfolio website built using SvelteKit.',
-		imageUrl: 'This project is a **personal portfolio website** built using **SvelteKit**, a modern framework for building highly optimized web applications. It showcases my professional experience, projects, skills, and contact information in a responsive design. The goal of this portfolio is to effectively present my work and leave a lasting impression on visitors, including potential employers.',
+		longDescription: 'This project is a **personal portfolio website** built using **SvelteKit**, a modern framework for building highly optimized web applications. It showcases my professional experience, projects, skills, and contact information in a responsive design. The goal of this portfolio is to effectively present my work and leave a lasting impression on visitors, including potential employers.',
+		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/static/bryant-mejia-portfolio-image-preview.png',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
 		tags: ['Html', 'Svelte', 'SSR', 'Frontend']
 	},
@@ -116,7 +117,7 @@ Typescript is used throughout the application, providing static typing to improv
 		name: 'Portfolio V4',
 		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
 		liveUrl: 'https://bryantmejia.carrd.co/',
-		description: 'A portfolio website built with no-code tools.',
+		description: 'Portfolio website built using no-code tools.',
 		imageUrl: '',
 		readmeUrl: '',
 		tags: ['Html', 'Css', 'Nocode']

@@ -57,7 +57,7 @@
 		{#each navLinks as link}
 			<a
 				href={link.link}
-				class="shrink-0 md:blur-[1px] hover:md:blur-0 transition-all hover:md:bg-slate-600 py-5 md:p-5"
+				class="shrink-0 md:blur-[0.8px] hover:md:blur-0 transition-all hover:md:bg-slate-600 py-5 md:p-5"
 			>
 				<h3>
 					{link.text.toUpperCase()}

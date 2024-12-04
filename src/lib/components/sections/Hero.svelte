@@ -24,7 +24,7 @@
 		class:opacity-100={$fadeSequence.hero}
 	>
 		<h1
-			class="absolute leading-relaxed text-3xl bottom-1/4 left-1/2 md:left-0 md:bottom-4 m-auto items-center font-medium md:m-10 transition-opacity duration-500"
+			class="absolute leading-relaxed text-xl bottom-1/4 left-1/2 md:left-0 md:bottom-4 m-auto items-center font-medium md:m-10 transition-opacity duration-500"
 			class:opacity-0={!$fadeSequence.text}
 			class:opacity-100={$fadeSequence.text}
 		>

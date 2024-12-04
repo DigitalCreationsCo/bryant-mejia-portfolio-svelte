@@ -47,7 +47,7 @@
 				class="flex flex-wrap w-full justify-center sm:justify-start items-center gap-2 py-4 overflow-hidden"
 			>
 				<p
-					class="dark:bg-slate-800 border-slate-800 dark:text-slate-300 dark:border-slate-300 max-sm:text-sm px-2 sm:px-4 py-1 h-max border-2"
+					class="dark:bg-slate-800 bg-red-800 border-red-800 dark:text-slate-300 dark:border-slate-300 px-2 sm:px-4 py-1 h-max border-2"
 				>
 					Error
 				</p>

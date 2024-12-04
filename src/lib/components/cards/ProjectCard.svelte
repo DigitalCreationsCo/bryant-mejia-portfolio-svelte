@@ -12,31 +12,25 @@
 <div in:slide out:scale class="md:hover:bg-blue mb-5 px-1">
 	<a href="/projects/{project.slug}">
 		<!-- Project description -->
-		<h2 class="text-lg mb-2">{project.name}</h2>
+		<h2 class="text-[16px] mb-2">{project.name}</h2>
 
 		<div class="md:max-w-xl mb-2">
-			<p class="text-sm">{project.description}</p>
+			<p>{project.description}</p>
 		</div>
 
 		<!-- Project tags -->
 		<div class="flex flex-wrap gap-2">
 			{#each tags as tag}
-				<!-- <p class="text-xs"> -->
 				<p
-					class="text-sm dark:bg-slate-800 border-slate-800 dark:text-slate-300 dark:border-slate-300 max-sm:text-sm px-2 sm:px-4 py-1 h-max border-2"
+					class="dark:bg-slate-800 border-slate-800 dark:text-slate-300 dark:border-slate-300 px-2 sm:px-4 py-1 h-max border-2"
 				>
 					{tag.name}
 				</p>
 			{/each}
 		</div>
-		<!-- Background image wrapper -->
 		<div>
-			<!-- Background image -->
-			<!-- <img src={project.imageUrl} alt={project.name} /> -->
-
-			<!-- Hover show view detail -->
 			<div>
-				<h4 class="my-2 text-sm">> View detail</h4>
+				<h4>> View detail</h4>
 			</div>
 		</div>
 	</a>
