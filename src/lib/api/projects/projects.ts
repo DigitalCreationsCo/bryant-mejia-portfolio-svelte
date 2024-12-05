@@ -3,6 +3,18 @@ import type { Project } from '$lib/types';
 const githubApiLink = 'https://api.github.com/repos/digitalcreationsco';
 const initialProjects: Project[] = [
 	{
+		id: 5,
+		slug: 'supply-chain-optimizer',
+		name: 'Supply Chain Optimizer Application',
+		url: `${githubApiLink}/Supply-Chain-Optimizer-Angular`,
+		liveUrl: 'https://optimize-supply-chain.netlify.app/',
+		description: 'Costs and emissions analysis for supply chain built using Angular 19.',
+		longDescription: 'This Angular application helps track and analyze costs and emissions for supply chain routes. It allows users to calculate total emissions based on geographic data and transportation segments.',
+		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/public/supply-chain-optimizer-image-preview.png',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/README.md',
+		tags: ['Angular', 'Analytics', 'Reactive']
+	},
+	{
 		id: 0,
 		slug: 'api-gateway',
 		name: 'Express API Gateway',
@@ -29,20 +41,6 @@ const initialProjects: Project[] = [
 		tags: ['Email', 'Editor', 'UGC', 'React']
 	},
 	{
-		id: 2,
-		slug: 'web-form',
-		name: 'Web Form Showcase',
-		url: `${githubApiLink}/welcome-form`,
-		liveUrl: 'https://welcomeform.netlify.app',
-		description: 'A simple and effective web form solution using modern web technologies, built with React and Next.js.',
-		longDescription: `This project demonstrates a simple and effective web form solution using modern web technologies, built with React and Next.js. It showcases advanced form handling techniques, including validation, dynamic rendering, and user interactions. The form state is persisted using React Context API.`,
-		imageUrl:
-			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/web-form-image-preview.png',
-		readmeUrl:
-			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/README.md',
-		tags: ['Form', 'Frontend', 'React']
-	},
-	{
 		id: 3,
 		slug: 'gras-retail-saas',
 		name: 'Gras Retail Business Application',
@@ -59,6 +57,20 @@ Typescript is used throughout the application, providing static typing to improv
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/production/README.md?token=GHSAT0AAAAAAC24QLMWQKWAW7WEY66ISALSZ2JOQ4A',
 		tags: ['SaaS', 'React']
+	},
+	{
+		id: 2,
+		slug: 'web-form',
+		name: 'Web Form Showcase',
+		url: `${githubApiLink}/welcome-form`,
+		liveUrl: 'https://welcomeform.netlify.app',
+		description: 'A simple and effective web form solution using modern web technologies, built with React and Next.js.',
+		longDescription: `This project demonstrates a simple and effective web form solution using modern web technologies, built with React and Next.js. It showcases advanced form handling techniques, including validation, dynamic rendering, and user interactions. The form state is persisted using React Context API.`,
+		imageUrl:
+			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/web-form-image-preview.png',
+		readmeUrl:
+			'https://raw.githubusercontent.com/DigitalCreationsCo/welcome-form/refs/heads/main/README.md',
+		tags: ['Form', 'Frontend', 'React']
 	},
 	{
 		id: 3,
@@ -86,18 +98,6 @@ Typescript is used throughout the application, providing static typing to improv
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/motion-scroll/refs/heads/main/README.md',
 		tags: ['Html', 'Css', 'Motion', 'Animation']
-	},
-	{
-		id: 5,
-		slug: 'supply-chain-optimizer',
-		name: 'Supply Chain Optimizer Application',
-		url: `${githubApiLink}/Supply-Chain-Optimizer-Angular`,
-		liveUrl: '',
-		description: 'Costs and emissions analysis for supply chain built using Angular 19.',
-		longDescription: 'This Angular application helps track and analyze costs and emissions for supply chain routes. It allows users to calculate total emissions based on geographic data and transportation segments.',
-		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/public/supply-chain-optimizer-image-preview.png',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/README.md',
-		tags: ['Angular', 'Analytics', 'Reactive']
 	},
 	{
 		id: 6,
