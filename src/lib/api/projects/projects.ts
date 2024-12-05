@@ -10,7 +10,7 @@ const initialProjects: Project[] = [
 		liveUrl: 'https://optimize-supply-chain.netlify.app/',
 		description: 'Costs and emissions analysis for supply chain built using Angular 19.',
 		longDescription: 'This Angular application helps track and analyze costs and emissions for supply chain routes. It allows users to calculate total emissions based on geographic data and transportation segments.',
-		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/public/supply-chain-optimizer-image-preview.png',
+		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/supply-chain-optimizer-image-preview.png',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/Supply-Chain-Optimizer-Angular/refs/heads/main/README.md',
 		tags: ['Angular', 'Analytics', 'Reactive']
 	},
