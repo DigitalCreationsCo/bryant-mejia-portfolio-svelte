@@ -16,15 +16,15 @@ const initialProjects: Project[] = [
 	},
 	{
 		id: 0,
-		slug: 'api-gateway',
-		name: 'Express API Gateway',
-		url: `${githubApiLink}/nodeJsApiGateway`,
-		liveUrl: `${githubApiLink}/nodeJsApiGateway`,
-		description: `A fully-featured API Gateway built for the Node.js javascript runtime using Express.js framework. `,
-		longDescription: `A fully-featured API Gateway built for the Node.js javascript runtime using Express.js framework. The application leverages the Axios library for handling requests and includes a service registry for dynamically managing registered APIs.`,
-		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/nodeJsApiGateway/refs/heads/master/nodejs-api-gateway-image-preview.png',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/nodeJsApiGateway/refs/heads/master/README.md',
-		tags: ['Gateway', 'API', 'Backend', 'Node.js']
+		slug: 'tonestar',
+		name: 'Tonestar',
+		url: `${githubApiLink}/tonestar`,
+		liveUrl: `https://tonestar-music.vercel.app`,
+		description: ``,
+		longDescription: ``,
+		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/tonestar/refs/heads/master/tonestar-image-preview.png',
+		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/tonestar/refs/heads/master/README.md',
+		tags: ['Artificial Intelligence', 'User-Generated Content', 'Audio Playblack']
 	},
 	{
 		id: 1,
@@ -38,7 +38,7 @@ const initialProjects: Project[] = [
 			'https://raw.githubusercontent.com/DigitalCreationsCo/TinyMail/refs/heads/main/public/tiny-mail-image-preview.png',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/TinyMail/refs/heads/main/README.md',
-		tags: ['Email', 'Editor', 'UGC', 'React']
+		tags: ['Email', 'Editor', 'UGC', 'React', 'Multi Tenant']
 	},
 	{
 		id: 3,
@@ -56,7 +56,7 @@ Typescript is used throughout the application, providing static typing to improv
 			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/production/static/assets/images/gras-image-preview.png',
 		readmeUrl:
 			'https://raw.githubusercontent.com/DigitalCreationsCo/cannabis-platform-monorepo/refs/heads/production/README.md?token=GHSAT0AAAAAAC24QLMWQKWAW7WEY66ISALSZ2JOQ4A',
-		tags: ['SaaS', 'React']
+		tags: ['SaaS', 'React', 'Microservices']
 	},
 	{
 		id: 2,
@@ -110,50 +110,6 @@ Typescript is used throughout the application, providing static typing to improv
 		imageUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/static/bryant-mejia-portfolio-image-preview.png',
 		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
 		tags: ['Html', 'Svelte', 'SSR', 'Frontend']
-	},
-	{
-		id: 7,
-		slug: 'portfolio-v4',
-		name: 'Portfolio V4',
-		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
-		liveUrl: 'https://bryantmejia.carrd.co/',
-		description: 'Portfolio website built using no-code tools.',
-		imageUrl: '',
-		readmeUrl: '',
-		tags: ['Html', 'Css', 'Nocode']
-	},
-	{
-		id: 8,
-		slug: 'portfolio-v3',
-		name: 'Portfolio V3',
-		url: `${githubApiLink}/bryant-mejia-portfolio-next`,
-		liveUrl: 'https://portfolio.v3.bryantmejia.com',
-		description: 'Portfolio website built using React and Next.js, and deployed using Vercel platform.',
-		imageUrl: '',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-next/refs/heads/main/README.md',
-		tags: ['React', 'SSR']
-	},
-	{
-		id: 9,
-		slug: 'portfolio-v2',
-		name: 'Portfolio V2',
-		url: `${githubApiLink}/bryant-mejia-portfolio-svelte`,
-		liveUrl: 'https://portfolio.v2.bryantmejia.com',
-		description: 'Portfolio SPA website built using React, and served from Google Cloud Platform simple storage.',
-		imageUrl: '',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte/refs/heads/main/README.md',
-		tags: ['React', 'SPA']
-	},
-	{
-		id: 10,
-		slug: 'portfolio-v1',
-		name: 'Portfolio V1',
-		url: `${githubApiLink}/htmlresume`,
-		liveUrl: 'https://portfolio.v1.bryantmejia.com',
-		description: 'Portfolio webpage created using html and css, and served from S3 storage.',
-		imageUrl: '',
-		readmeUrl: 'https://raw.githubusercontent.com/DigitalCreationsCo/htmlresume/refs/heads/master/README.md?token=GHSAT0AAAAAAC24QLMWYIOLUI4UDUAR4OLAZ2KFAUA',
-		tags: ['Html', 'Css']
 	},
 ];
 

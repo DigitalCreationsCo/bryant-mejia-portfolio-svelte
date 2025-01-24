@@ -12,8 +12,8 @@ const config = {
 		prerender: {
 			entries: ["*", "/bio", "/contact", "/projects", "/technical"],
 			handleHttpError: 'warn', // helpful for debugging build errors
-		}
-	}
+		},
+	},
 };
 
 export default config;

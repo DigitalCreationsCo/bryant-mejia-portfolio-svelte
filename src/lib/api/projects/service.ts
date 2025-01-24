@@ -3,19 +3,25 @@ import type { Project, ProjectDetail } from '$lib/types';
 import { browser } from '$app/environment';
 import { error } from '@sveltejs/kit';
 
+const fetchingProjects = new Set<number>();
+
 class ProjectService {
-	async fetchProject({
-		project,
-		fetch
-	}: {
+	async fetchProject({ project, fetch }: {
 		project: Project;
-		fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>;
+		fetch: any
 	}) {
+		if (fetchingProjects.has(project.id)) {
+			console.warn(`Skipping duplicate fetch for project: ${project.name}`);
+			return;
+		}
+
+		fetchingProjects.add(project.id);
+
 		try {
 			const response = await fetch(project.url, {
 				method: 'GET',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
 				}
 			});
 
@@ -23,94 +29,33 @@ class ProjectService {
 
 			let newProject: Project;
 
-			if (response.status === 200) {
-				newProject = {
-					id: project.id,
-					slug: project.slug,
-					name: project.name,
-					url: project.url,
-					liveUrl: project.liveUrl,
-					description: project.description || json.description,
-					imageUrl: project.imageUrl,
-					readmeUrl: project.readmeUrl,
-					tags: [...project.tags, json?.language?.toLowerCase()].filter(Boolean),
-					starsCount: json.stargazers_count,
-					forksCount: json.forks,
-					downloadsCount: await this.getDownloadsCount(project.url)
-				};
+			newProject = {
+				id: project.id,
+				slug: project.slug,
+				name: project.name,
+				url: project.url,
+				liveUrl: project.liveUrl,
+				description: project.description || json.description,
+				imageUrl: project.imageUrl,
+				readmeUrl: project.readmeUrl,
+				tags: [...project.tags, json?.language].filter(Boolean),
+				starsCount: json.stargazers_count,
+				forksCount: json.forks,
+				downloadsCount: await this.getDownloadsCount(project.url)
+			};
 
-				return projectsStore.update((projects) => {
-					const updatedProjects = [...projects, newProject];
 
-					if (browser) {
-						try {
-							localStorage.setItem('projects', JSON.stringify(updatedProjects));
-						} finally {
-							[];
-						}
-					}
-
-					return updatedProjects;
-				});
-			} else {
-				console.log(json);
-
-				let fallbackData: Project[] = [];
-
-				if (browser && localStorage.getItem('projects')) {
-					fallbackData = (JSON.parse(localStorage.getItem('projects') ?? '[]') as Project[]).map(
-						(project) => ({ ...project, imageText: 'Server error / API rate limit exceeded' })
-					);
-				} else if (response.status === 403) {
-					fallbackData = [
-						{
-							id: project.id,
-							slug: project.slug,
-							name: 'limit',
-							liveUrl: project.liveUrl,
-							url: project.url,
-							description: json.message,
-							imageUrl: project.imageUrl,
-							readmeUrl: project.readmeUrl,
-							tags: []
-						}
-					];
-				} else {
-					throw response;
+			return projectsStore.update((projectsMap) => {
+				if (!projectsMap.has(newProject.id)) {
+					projectsMap.set(newProject.id, newProject);
 				}
+				return projectsMap;
+			});
 
-				projectsStore.update(() => fallbackData);
-
-				return error(response.status ?? 500, 'Failed to fetch data');
-			}
-		} catch (err) {
-			console.log(err);
-
-			let fallbackData: Project[] = [];
-
-			if (browser && localStorage.getItem('projects')) {
-				fallbackData = (JSON.parse(localStorage.getItem('projects') ?? '[]') as Project[]).map(
-					(project) => ({ ...project, imageText: 'A connection could not be established.' })
-				);
-			} else {
-				fallbackData = [
-					{
-						id: project.id,
-						slug: project.slug,
-						name: 'error',
-						liveUrl: project.liveUrl,
-						url: project.url,
-						description: 'A connection could not be established.',
-						imageUrl: project.imageUrl,
-						readmeUrl: project.readmeUrl,
-						tags: []
-					}
-				];
-			}
-
-			projectsStore.update(() => fallbackData);
-
-			return error(500, 'Failed to fetch data');
+		} catch (error) {
+			console.error('Error fetching project:', error);
+		} finally {
+			fetchingProjects.delete(project.id); // Remove from the tracking set
 		}
 	}
 
@@ -142,7 +87,7 @@ class ProjectService {
 					description: project.description || json.description,
 					longDescription: project.longDescription || project.description || json.description,
 					imageUrl: project.imageUrl,
-					tags: [...project.tags, json?.language?.toLowerCase()].filter(Boolean),
+					tags: [...project.tags, json?.language].filter(Boolean),
 					repositoryUrl: json['svn_url'],
 					hasLiveUrl: Boolean(project.liveUrl || json.homepage || false),
 					liveUrl: project.liveUrl || json.homepage,
@@ -154,8 +99,6 @@ class ProjectService {
 
 				return projectDetailStore.update(() => newProject);
 			} else {
-				console.log(json);
-
 				let fallbackData: ProjectDetail;
 
 				if (browser && localStorage.getItem('projectDetail')) {
@@ -183,7 +126,7 @@ class ProjectService {
 
 				projectDetailStore.update(() => fallbackData);
 
-				return error(response.status ?? 500, 'Failed to fetch data');
+				return error((response.status as any) ?? 500, 'Failed to fetch data');
 			}
 		} catch (err) {
 			console.log(err);
