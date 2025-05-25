@@ -57,8 +57,8 @@
 		</div>
 		<!-- <Saos animation={'scale-up-center 1s cubic-bezier(0.4, 0, 0.2, 1) both'}> -->
 		<h3 class="md:whitespace-pre w-fit mx-auto">
-			{`Bryant Mejia is a software developer from New York 🏙️
-with a passion for problem-solving and customer service.`}
+			{`I’m Bryant Mejia. 
+I'm a full-stack software engineer with 5+ years of experience designing and delivering scalable software, data infrastructure, and AI systems for startups and modern enterprises. My work sits at the intersection of data, infrastructure, and user experience—helping businesses unlock value and people make better decisions in the flow of work and life.`}
 		</h3>
 		<!-- </Saos> -->
 	</div>
