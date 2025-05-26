@@ -32,7 +32,7 @@
 		in:fadeAndScale|local={{ duration: 2000 }}
 		class="relative h-full md:max-w-3xl p-10 m-auto md:content-center bg-black md:bg-inherit"
 	>
-		<div class="top-0 left-0 h-1/2 mb-10 overflow-clip">
+		<div class="absolute top-0 left-0 h-1/2 mb-10 overflow-clip">
 			<img
 				src={'/stars.png'}
 				alt="Starfield, James Webb Telescope"
@@ -55,11 +55,9 @@
 				class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black via-transparent to-black md:from-dark md:via-transparent md:to-dark"
 			></div>
 		</div>
-		<Saos animation={'scale-up-center 1s cubic-bezier(0.4, 0, 0.2, 1) both'}>
 		<h3 class="md:whitespace-pre w-fit mx-auto">
 			{`I’m Bryant Mejia. 
 I'm a full-stack software engineer with 5+ years of experience designing and delivering scalable software, data infrastructure, and AI systems for startups and modern enterprises. My work sits at the intersection of data, infrastructure, and user experience—helping businesses unlock value and people make better decisions in the flow of work and life.`}
 		</h3>
-		</Saos>
 	</div>
 </TwinklingStars>
