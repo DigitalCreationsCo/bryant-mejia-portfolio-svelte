@@ -9,12 +9,12 @@
 	});
 </script>
 
-<div class="h-full p-10 relative flex flex-col">
+<div class="h-full p-10 relative flex flex-col max-w-4xl mx-auto">
 	{#each socials as social}
 		<a
 			href={social.link}
 			target="_blank"
-			class="relative inline-block shrink-0 md:blur-[.8px] hover:md:blur-0 transition-all hover:md:bg-slate-600 py-5 md:p-10 border h-32"
+			class="relative inline-block shrink-0 md:blur-[.8px] hover:md:blur-0 transition-all hover:md:bg-slate-500 py-5 md:p-10 border h-32"
 		>
 			<h3 class="z-10 absolute">
 				> {social.social}
