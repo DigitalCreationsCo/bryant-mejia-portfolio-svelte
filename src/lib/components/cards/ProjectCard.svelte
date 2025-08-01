@@ -9,7 +9,7 @@
 	});
 </script>
 
-<div in:slide out:scale class="md:hover:bg-blue mb-5 px-1">
+<div in:slide out:scale class="md:hover:bg-blue transition-all mb-5 px-1">
 	<a href="/projects/{project.slug}">
 		<!-- Project description -->
 		<h2 class="text-[16px] mb-2">{project.name}</h2>
