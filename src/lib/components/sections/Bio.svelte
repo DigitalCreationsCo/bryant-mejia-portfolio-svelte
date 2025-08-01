@@ -55,7 +55,7 @@
 				class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black via-transparent to-black md:from-dark md:via-transparent md:to-dark"
 			></div>
 		</div>
-		<h3 class="whitespace-pre max-w-2xl w-fit mx-auto">
+		<h3 class="w-fit mx-auto">
 			{`I’m Bryant Mejia. 
 I'm a full-stack software engineer with 5+ years of experience designing and delivering scalable software, data infrastructure, and AI systems for startups and modern enterprises. My work sits at the intersection of data, infrastructure, and user experience—helping businesses unlock value and people make better decisions in the flow of work and life.`}
 		</h3>
