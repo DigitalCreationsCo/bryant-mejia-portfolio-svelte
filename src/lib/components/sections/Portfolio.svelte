@@ -48,7 +48,7 @@
 </script>
 
 <div use:checkIntersecting class="px-10 py-2 md:p-10 mx-auto border-t-[11px] border-blue">
-	<div class="flex flex-col">
+	<div class="flex flex-col max-w-4xl mx-auto">
 		{#if $projects.length == 0}
 			<ProjectCardLoading />
 		{:else if $projects.length == 1 && ($projects[0].name === 'error' || $projects[0].name === 'limit')}
