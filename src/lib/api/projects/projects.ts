@@ -1,8 +1,24 @@
 import type { Project } from '$lib/types';
+import { env } from '$env/dynamic/private';
 
 const githubApiLink = 'https://api.github.com/repos/digitalcreationsco';
 const githubUserApiLink = 'https://api.github.com/users/digitalcreationsco';
 const githubUsername = 'digitalcreationsco';
+
+// Helper function to get GitHub API headers with authentication
+function getGitHubHeaders(): Record<string, string> {
+	const headers: Record<string, string> = {
+		'Accept': 'application/vnd.github.v3+json'
+	};
+	
+	// Add Authorization header if API key is available
+	const apiKey = env.GITHUB_API_KEY;
+	if (apiKey) {
+		headers['Authorization'] = `token ${apiKey}`;
+	}
+	
+	return headers;
+}
 
 interface GitHubRepo {
 	id: number;
@@ -22,9 +38,7 @@ async function fetchGitHubRepos(fetch: any): Promise<GitHubRepo[]> {
 	try {
 		const response = await fetch(`${githubUserApiLink}/repos?sort=updated&direction=desc&per_page=100`, {
 			method: 'GET',
-			headers: {
-				'Accept': 'application/vnd.github.v3+json'
-			}
+			headers: getGitHubHeaders()
 		});
 
 		if (!response.ok) {

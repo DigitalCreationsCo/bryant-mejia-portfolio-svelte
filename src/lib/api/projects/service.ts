@@ -2,8 +2,24 @@ import { projectsStore, projectDetailStore } from '$lib/store/projects';
 import type { Project, ProjectDetail } from '$lib/types';
 import { browser } from '$app/environment';
 import { error } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 
 const fetchingProjects = new Set<number>();
+
+// Helper function to get GitHub API headers with authentication
+function getGitHubHeaders(): Record<string, string> {
+	const headers: Record<string, string> = {
+		'Content-Type': 'application/json'
+	};
+	
+	// Add Authorization header if API key is available
+	const apiKey = env.GITHUB_API_KEY;
+	if (apiKey) {
+		headers['Authorization'] = `token ${apiKey}`;
+	}
+	
+	return headers;
+}
 
 class ProjectService {
 	async fetchProject({ project, fetch }: {
@@ -20,9 +36,7 @@ class ProjectService {
 		try {
 			const response = await fetch(project.url, {
 				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				}
+				headers: getGitHubHeaders()
 			});
 
 			const json = JSON.parse(await response.text());
@@ -69,9 +83,7 @@ class ProjectService {
 		try {
 			const response = await fetch(project.url, {
 				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
+				headers: getGitHubHeaders()
 			});
 
 			const json = JSON.parse(await response.text());
@@ -179,8 +191,13 @@ class ProjectService {
 	}
 
 	async getDownloadsCount(url: string) {
+		const headers = getGitHubHeaders();
+		// Remove Content-Type for this endpoint if not needed
+		delete headers['Content-Type'];
+		
 		const response = await fetch(`${url}/releases`, {
-			method: 'GET'
+			method: 'GET',
+			headers: headers
 		});
 
 		try {
