@@ -7,7 +7,8 @@ import type { EntryGenerator } from './$types';
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch }) {
     try {
-        const allProjects = await getInitialProjects(fetch);
+        // If fetch is not available (shouldn't happen in normal operation), use static projects
+        const allProjects = fetch ? await getInitialProjects(fetch) : initialProjects;
         const project: Project | undefined = allProjects.find((project) => project.slug === params.slug);
         if (dev) {
             console.log('Server-side log - params:', params);
@@ -30,15 +31,8 @@ export async function load({ params, fetch }) {
     }
 }
 
-export const entries: EntryGenerator = async ({ fetch }) => {
-    try {
-        const allProjects = await getInitialProjects(fetch);
-        if (allProjects && allProjects.length > 0) {
-            return allProjects.map(({ slug }) => ({ slug }));
-        }
-    } catch (err) {
-        console.error('Error in entries generator, using static projects:', err);
-    }
-    // Fallback to static projects for entries generation
+export const entries: EntryGenerator = async () => {
+    // Use static projects for entries generation to ensure reliable builds
+    // GitHub repos will be fetched dynamically at runtime in the Portfolio component
     return initialProjects.map(({ slug }) => ({ slug }));
 };
