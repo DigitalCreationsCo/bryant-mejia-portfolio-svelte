@@ -1,7 +1,91 @@
 import type { Project } from '$lib/types';
 
 const githubApiLink = 'https://api.github.com/repos/digitalcreationsco';
-const initialProjects: Project[] = [
+const githubUserApiLink = 'https://api.github.com/users/digitalcreationsco';
+const githubUsername = 'digitalcreationsco';
+
+interface GitHubRepo {
+	id: number;
+	name: string;
+	full_name: string;
+	description: string | null;
+	html_url: string;
+	homepage: string | null;
+	language: string | null;
+	stargazers_count: number;
+	forks: number;
+	updated_at: string;
+	default_branch: string;
+}
+
+async function fetchGitHubRepos(fetch: any): Promise<GitHubRepo[]> {
+	try {
+		const response = await fetch(`${githubUserApiLink}/repos?sort=updated&direction=desc&per_page=100`, {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/vnd.github.v3+json'
+			}
+		});
+
+		if (!response.ok) {
+			// Log status for debugging but don't throw - return empty array
+			console.warn(`GitHub API returned ${response.status}: ${response.statusText}`);
+			// If rate limited, log a warning
+			if (response.status === 403) {
+				console.warn('GitHub API rate limit may have been exceeded');
+			}
+			return [];
+		}
+
+		const text = await response.text();
+		if (!text) {
+			return [];
+		}
+
+		try {
+			const repos: GitHubRepo[] = JSON.parse(text);
+			return Array.isArray(repos) ? repos : [];
+		} catch (parseError) {
+			console.error('Failed to parse GitHub API response:', parseError);
+			return [];
+		}
+	} catch (error) {
+		console.error('Error fetching GitHub repos:', error);
+		return [];
+	}
+}
+
+function transformGitHubRepoToProject(repo: GitHubRepo): Project {
+	const slug = repo.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+	const branch = repo.default_branch || 'main';
+	// Try common image file names - these will be validated when fetched
+	const possibleImagePaths = [
+		`preview.png`,
+		`${repo.name}-preview.png`,
+		`${repo.name.toLowerCase()}-preview.png`,
+		`preview.jpg`,
+		`screenshot.png`,
+		`image-preview.png`
+	];
+	// Use the first possible path as default (will be validated when ProjectService fetches it)
+	const imageUrl = `https://raw.githubusercontent.com/${repo.full_name}/${branch}/${possibleImagePaths[0]}`;
+	const readmeUrl = `https://raw.githubusercontent.com/${repo.full_name}/${branch}/README.md`;
+
+	return {
+		id: repo.id,
+		slug: slug,
+		name: repo.name,
+		url: `${githubApiLink}/${repo.name}`,
+		liveUrl: repo.homepage || '',
+		description: repo.description || '',
+		imageUrl: imageUrl,
+		readmeUrl: readmeUrl,
+		tags: repo.language ? [repo.language] : []
+	};
+}
+
+// Static projects list for backward compatibility and fallback
+const staticProjects: Project[] = [
 	{
 		id: 5,
 		slug: 'supply-chain-optimizer',
@@ -113,4 +197,41 @@ Typescript is used throughout the application, providing static typing to improv
 	},
 ];
 
-export { initialProjects };
+// Get initial projects with 3 most recent repos prepended
+async function getInitialProjects(fetch: any): Promise<Project[]> {
+	try {
+		const repos = await fetchGitHubRepos(fetch);
+		
+		// Only add repos if we successfully fetched them
+		if (repos && repos.length > 0) {
+			const recentRepos = repos.slice(0, 3).map(repo => transformGitHubRepoToProject(repo));
+			// Prepend the 3 most recent repos to the static projects
+			return [...recentRepos, ...staticProjects];
+		}
+	} catch (error) {
+		console.error('Error in getInitialProjects, falling back to static projects:', error);
+	}
+	
+	// Fallback to static projects if GitHub fetch fails
+	return staticProjects;
+}
+
+// Get all GitHub repos as projects
+async function getAllGitHubReposAsProjects(fetch: any): Promise<Project[]> {
+	try {
+		const repos = await fetchGitHubRepos(fetch);
+		if (repos && repos.length > 0) {
+			return repos.map(repo => transformGitHubRepoToProject(repo));
+		}
+	} catch (error) {
+		console.error('Error in getAllGitHubReposAsProjects:', error);
+	}
+	
+	// Return empty array if fetch fails - component will handle gracefully
+	return [];
+}
+
+// For backward compatibility
+const initialProjects = staticProjects;
+
+export { initialProjects, fetchGitHubRepos, transformGitHubRepoToProject, getInitialProjects, getAllGitHubReposAsProjects };

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type ProjectService, initialProjects } from '$lib/api/projects';
+	import { type ProjectService, getAllGitHubReposAsProjects } from '$lib/api/projects';
 	import { projects } from '$lib/store/projects';
 	import ProjectCard from '$lib/components/cards/ProjectCard.svelte';
 	import ProjectCardLoading from '$lib/components/cards/ProjectCardLoading.svelte';
@@ -18,21 +18,34 @@
 
 	let isIntersecting = false;
 
-	// Fetch project when this section is appeared
+	// Fetch projects when this section is appeared
 	function checkIntersecting(node: Element) {
 		const observer: IntersectionObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				if (!entry.isIntersecting) return;
 
 				setTimeout(async () => {
-					console.log('Fetching projects');
+					console.log('Fetching GitHub repositories');
 
-					for (const project of initialProjects) {
-						try {
-							await projectService.fetchProject({ project, fetch });
-						} catch (_) {
-							break;
+					try {
+						// Fetch all GitHub repos dynamically
+						const githubProjects = await getAllGitHubReposAsProjects(fetch);
+						
+						if (githubProjects && githubProjects.length > 0) {
+							// Fetch details for each project
+							for (const project of githubProjects) {
+								try {
+									await projectService.fetchProject({ project, fetch });
+								} catch (_) {
+									// Continue with next project if one fails
+									continue;
+								}
+							}
+						} else {
+							console.warn('No GitHub repositories found or API request failed');
 						}
+					} catch (error) {
+						console.error('Error fetching GitHub repos:', error);
 					}
 
 					isIntersecting = true;
