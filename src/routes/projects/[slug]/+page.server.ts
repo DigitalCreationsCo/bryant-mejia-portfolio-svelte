@@ -9,13 +9,25 @@ import { env } from '$env/dynamic/private';
 export async function load({ params, fetch }) {
     try {
         const apiKey = env.GITHUB_API_KEY;
-        // If fetch is not available (shouldn't happen in normal operation), use static projects
-        const allProjects = fetch ? await getInitialProjects(fetch, apiKey) : initialProjects;
+        // Always fallback to static projects during prerender to avoid 404s
+        let allProjects = initialProjects;
+        
+        // Try to get initial projects (with GitHub repos) if fetch is available
+        if (fetch) {
+            try {
+                allProjects = await getInitialProjects(fetch, apiKey);
+            } catch (fetchError) {
+                console.warn('Failed to fetch GitHub repos, using static projects:', fetchError);
+                // Use static projects as fallback
+                allProjects = initialProjects;
+            }
+        }
+        
         const project: Project | undefined = allProjects.find((project) => project.slug === params.slug);
         if (dev) {
             console.log('Server-side log - params:', params);
-            console.log('Server-side log - projects:', allProjects);
-            console.log('project ', params.slug)
+            console.log('Server-side log - projects count:', allProjects.length);
+            console.log('project slug:', params.slug);
         }
 
         if (project === undefined) throw error(404, 'Project not found');

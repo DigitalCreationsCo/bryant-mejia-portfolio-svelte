@@ -2,6 +2,8 @@
 	import type { ProjectDetail } from '$lib/types';
 
 	export let project: ProjectDetail;
+	export let readmeContent: string | null = null;
+	export let isLoadingReadme: boolean = false;
 
 	const tags = project.tags.map((tag) => {
 		return { key: tag, name: tag };
@@ -70,6 +72,21 @@
 		</div>
 	</div>
 </div>
+
 <!-- README.md -->
-<hr class="mt-16 border border-slate-700 dark:border-slate-300" />
-<hr class="mb-16 md:mb-24 border border-slate-700 dark:border-slate-300" />
+{#if readmeContent || isLoadingReadme}
+	<hr class="mt-16 border border-slate-700 dark:border-slate-300" />
+	<div class="w-full px-10 py-2 md:py-10 lg:pr-0">
+		<h2 class="text-[16px] mb-6 md:mb-8 lg:mb-12">README</h2>
+		{#if isLoadingReadme}
+			<p class="text-slate-500">Loading README...</p>
+		{:else if readmeContent}
+			<div class="prose prose-slate dark:prose-invert max-w-none">
+				<pre class="whitespace-pre-wrap font-mono text-sm bg-slate-50 dark:bg-slate-900 p-4 rounded overflow-x-auto"><code>{readmeContent}</code></pre>
+			</div>
+		{:else}
+			<p class="text-slate-500">README not available for this project.</p>
+		{/if}
+	</div>
+	<hr class="mb-16 md:mb-24 border border-slate-700 dark:border-slate-300" />
+{/if}

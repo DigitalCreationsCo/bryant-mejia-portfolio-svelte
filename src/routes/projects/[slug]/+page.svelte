@@ -8,9 +8,30 @@
 	import { fade } from 'svelte/transition';
 
 	export let data: PageData;
+	
+	let readmeContent: string | null = null;
+	let isLoadingReadme = true;
 
-	onMount(() => {
-		data.projectService.fetchProjectDetail({ project: data.project, fetch: data.fetch });
+	onMount(async () => {
+		await data.projectService.fetchProjectDetail({ project: data.project, fetch: data.fetch });
+		
+		// Fetch README content
+		if (data.project.readmeUrl) {
+			try {
+				const readme = await data.projectService.getProjectReadme({ 
+					project: data.project, 
+					fetch: data.fetch 
+				});
+				readmeContent = readme;
+			} catch (error) {
+				console.error('Error fetching README:', error);
+				readmeContent = null;
+			} finally {
+				isLoadingReadme = false;
+			}
+		} else {
+			isLoadingReadme = false;
+		}
 	});
 </script>
 
@@ -22,7 +43,7 @@
 	{#if !$projectDetail}
 		<ProjectDetailLoading />
 	{:else if $projectDetail.name !== 'error' && $projectDetail.name !== 'limit'}
-		<ProjectDetail project={$projectDetail} />
+		<ProjectDetail project={$projectDetail} {readmeContent} {isLoadingReadme} />
 	{:else}
 		<ProjectDetailError project={$projectDetail} />
 	{/if}

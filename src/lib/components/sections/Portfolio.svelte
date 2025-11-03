@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { type ProjectService, getAllGitHubReposAsProjects } from '$lib/api/projects';
-	import { projects } from '$lib/store/projects';
+	import { type ProjectService, getRecentGitHubReposAsProjects, initialProjects } from '$lib/api/projects';
+	import { projectsStore, projects } from '$lib/store/projects';
 	import ProjectCard from '$lib/components/cards/ProjectCard.svelte';
 	import ProjectCardLoading from '$lib/components/cards/ProjectCardLoading.svelte';
 	import ProjectCardError from '$lib/components/cards/ProjectCardError.svelte';
@@ -10,10 +10,23 @@
 
 	export let fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>;
 	export let projectService: ProjectService;
-
+	
+	// Load 3 static projects initially
+	const staticProjectsToShow = initialProjects.slice(0, 3);
+	
 	onMount(() => {
 		const currentUrl = $page.url.pathname;
 		sessionStorage.setItem('lastUrl', currentUrl);
+		
+		// Initialize with 3 static projects
+		projectsStore.update((projectsMap) => {
+			staticProjectsToShow.forEach(project => {
+				if (!projectsMap.has(project.id)) {
+					projectsMap.set(project.id, project);
+				}
+			});
+			return projectsMap;
+		});
 	});
 
 	let isIntersecting = false;
@@ -25,13 +38,13 @@
 				if (!entry.isIntersecting) return;
 
 				setTimeout(async () => {
-					console.log('Fetching GitHub repositories');
+					console.log('Fetching 6 most recent GitHub repositories');
 
 					try {
-						// Fetch all GitHub repos dynamically
+						// Fetch 6 most recent GitHub repos dynamically
 						// Note: apiKey is not passed to avoid exposing secrets to client
 						// Client-side requests will work without auth (lower rate limits)
-						const githubProjects = await getAllGitHubReposAsProjects(fetch);
+						const githubProjects = await getRecentGitHubReposAsProjects(fetch, undefined, 6);
 						
 						if (githubProjects && githubProjects.length > 0) {
 							// Fetch details for each project

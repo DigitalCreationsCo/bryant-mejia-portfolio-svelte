@@ -229,22 +229,27 @@ async function getInitialProjects(fetch: any, apiKey?: string): Promise<Project[
 	return staticProjects;
 }
 
-// Get all GitHub repos as projects
-async function getAllGitHubReposAsProjects(fetch: any, apiKey?: string): Promise<Project[]> {
+// Get 6 most recent GitHub repos as projects (for runtime fetching)
+async function getRecentGitHubReposAsProjects(fetch: any, apiKey?: string, limit: number = 6): Promise<Project[]> {
 	try {
 		const repos = await fetchGitHubRepos(fetch, apiKey);
 		if (repos && repos.length > 0) {
-			return repos.map(repo => transformGitHubRepoToProject(repo));
+			return repos.slice(0, limit).map(repo => transformGitHubRepoToProject(repo));
 		}
 	} catch (error) {
-		console.error('Error in getAllGitHubReposAsProjects:', error);
+		console.error('Error in getRecentGitHubReposAsProjects:', error);
 	}
 	
 	// Return empty array if fetch fails - component will handle gracefully
 	return [];
 }
 
+// Get all GitHub repos as projects (kept for backward compatibility)
+async function getAllGitHubReposAsProjects(fetch: any, apiKey?: string): Promise<Project[]> {
+	return getRecentGitHubReposAsProjects(fetch, apiKey, 100);
+}
+
 // For backward compatibility
 const initialProjects = staticProjects;
 
-export { initialProjects, fetchGitHubRepos, transformGitHubRepoToProject, getInitialProjects, getAllGitHubReposAsProjects };
+export { initialProjects, fetchGitHubRepos, transformGitHubRepoToProject, getInitialProjects, getAllGitHubReposAsProjects, getRecentGitHubReposAsProjects };
