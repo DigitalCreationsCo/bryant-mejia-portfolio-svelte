@@ -1,18 +1,17 @@
 import type { Project } from '$lib/types';
-import { env } from '$env/dynamic/private';
 
 const githubApiLink = 'https://api.github.com/repos/digitalcreationsco';
 const githubUserApiLink = 'https://api.github.com/users/digitalcreationsco';
 const githubUsername = 'digitalcreationsco';
 
 // Helper function to get GitHub API headers with authentication
-function getGitHubHeaders(): Record<string, string> {
+// apiKey should be passed from server-side code
+function getGitHubHeaders(apiKey?: string): Record<string, string> {
 	const headers: Record<string, string> = {
 		'Accept': 'application/vnd.github.v3+json'
 	};
 	
 	// Add Authorization header if API key is available
-	const apiKey = env.GITHUB_API_KEY;
 	if (apiKey) {
 		headers['Authorization'] = `token ${apiKey}`;
 	}
@@ -34,11 +33,11 @@ interface GitHubRepo {
 	default_branch: string;
 }
 
-async function fetchGitHubRepos(fetch: any): Promise<GitHubRepo[]> {
+async function fetchGitHubRepos(fetch: any, apiKey?: string): Promise<GitHubRepo[]> {
 	try {
 		const response = await fetch(`${githubUserApiLink}/repos?sort=updated&direction=desc&per_page=100`, {
 			method: 'GET',
-			headers: getGitHubHeaders()
+			headers: getGitHubHeaders(apiKey)
 		});
 
 		if (!response.ok) {
@@ -212,9 +211,9 @@ Typescript is used throughout the application, providing static typing to improv
 ];
 
 // Get initial projects with 3 most recent repos prepended
-async function getInitialProjects(fetch: any): Promise<Project[]> {
+async function getInitialProjects(fetch: any, apiKey?: string): Promise<Project[]> {
 	try {
-		const repos = await fetchGitHubRepos(fetch);
+		const repos = await fetchGitHubRepos(fetch, apiKey);
 		
 		// Only add repos if we successfully fetched them
 		if (repos && repos.length > 0) {
@@ -231,9 +230,9 @@ async function getInitialProjects(fetch: any): Promise<Project[]> {
 }
 
 // Get all GitHub repos as projects
-async function getAllGitHubReposAsProjects(fetch: any): Promise<Project[]> {
+async function getAllGitHubReposAsProjects(fetch: any, apiKey?: string): Promise<Project[]> {
 	try {
-		const repos = await fetchGitHubRepos(fetch);
+		const repos = await fetchGitHubRepos(fetch, apiKey);
 		if (repos && repos.length > 0) {
 			return repos.map(repo => transformGitHubRepoToProject(repo));
 		}

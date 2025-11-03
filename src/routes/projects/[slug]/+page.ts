@@ -3,12 +3,14 @@ import { ProjectService, getInitialProjects, initialProjects } from '$lib/api/pr
 import { type Project } from '$lib/types';
 import { dev } from '$app/environment';
 import type { EntryGenerator } from './$types';
+import { env } from '$env/dynamic/private';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch }) {
     try {
+        const apiKey = env.GITHUB_API_KEY;
         // If fetch is not available (shouldn't happen in normal operation), use static projects
-        const allProjects = fetch ? await getInitialProjects(fetch) : initialProjects;
+        const allProjects = fetch ? await getInitialProjects(fetch, apiKey) : initialProjects;
         const project: Project | undefined = allProjects.find((project) => project.slug === params.slug);
         if (dev) {
             console.log('Server-side log - params:', params);
@@ -18,7 +20,7 @@ export async function load({ params, fetch }) {
 
         if (project === undefined) throw error(404, 'Project not found');
 
-        const projectService: ProjectService = new ProjectService();
+        const projectService: ProjectService = new ProjectService(apiKey);
 
         return { project: project, projectService: projectService, fetch: fetch };
     } catch (err) {

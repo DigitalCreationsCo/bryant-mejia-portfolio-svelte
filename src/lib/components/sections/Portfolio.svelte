@@ -29,6 +29,8 @@
 
 					try {
 						// Fetch all GitHub repos dynamically
+						// Note: apiKey is not passed to avoid exposing secrets to client
+						// Client-side requests will work without auth (lower rate limits)
 						const githubProjects = await getAllGitHubReposAsProjects(fetch);
 						
 						if (githubProjects && githubProjects.length > 0) {
