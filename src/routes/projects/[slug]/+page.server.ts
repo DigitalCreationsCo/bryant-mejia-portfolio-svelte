@@ -2,10 +2,10 @@ import { error } from '@sveltejs/kit';
 import { ProjectService, getInitialProjects, initialProjects } from '$lib/api/projects';
 import { type Project } from '$lib/types';
 import { dev } from '$app/environment';
-import type { EntryGenerator } from './$types';
+import type { EntryGenerator, PageServerLoad } from './$types';
 import { env } from '$env/dynamic/private';
 
-/** @type {import('./$types').PageLoad} */
+/** @type {PageServerLoad} */
 export async function load({ params, fetch }) {
     try {
         const apiKey = env.GITHUB_API_KEY;
@@ -38,3 +38,4 @@ export const entries: EntryGenerator = async () => {
     // GitHub repos will be fetched dynamically at runtime in the Portfolio component
     return initialProjects.map(({ slug }) => ({ slug }));
 };
+
