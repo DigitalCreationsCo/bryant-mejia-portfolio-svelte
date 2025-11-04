@@ -1,6 +1,6 @@
 # Andres Bryant Developer Portfolio
 
-**One-line:** A visually immersive AI and web developer portfolio inspired by classic sci-fi aesthetics, showcasing skills, projects, and experience.
+A visually immersive AI and web developer portfolio inspired by classic sci-fi aesthetics, showcasing skills, projects, and experience.
 
 ---
 
