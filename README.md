@@ -1,28 +1,98 @@
-# SvelteKit Portfolio Project
+# Andres Bryant Developer Portfolio
+
+**One-line:** A visually immersive AI and web developer portfolio inspired by classic sci-fi aesthetics, showcasing skills, projects, and experience.
+
+---
 
 ## Overview
-This project is a **personal portfolio website** built using **SvelteKit**, a modern framework for building highly optimized web applications. It showcases my professional experience, projects, skills, and contact information in a responsive design. The goal of this portfolio is to effectively present my work and leave a lasting impression on visitors, including potential employers.
+
+This portfolio website is designed to present my AI and web development work in a dynamic and visually engaging way. Drawing inspiration from science fiction classics like 2001: A Space Odyssey and Alien, the site blends techno-retro visuals with modern web technologies, providing an experience that reflects both creativity and technical mastery. It serves as a professional showcase for potential employers, collaborators, and tech enthusiasts.
+
+---
 
 ## Key Features
-- **Responsive Design**: 
-  - Fully optimized for viewing on desktops, tablets, and mobile devices.
-- **Dynamic Content**:
-  - Projects and skills are dynamically rendered, allowing for easy updates and scalability.
-- **Fast and Lightweight**:
-  - Powered by SvelteKit for fast load times and a seamless user experience.
-- **Accessible**:
-  - Designed with accessibility in mind, ensuring compatibility with screen readers and keyboard navigation.
-- **SEO Optimized**:
-  - Features meta tags and a structured layout to improve discoverability on search engines.
+
+* **Responsive & Immersive Design**: Seamless experience across desktop, tablet, and mobile devices with sci-fi inspired visual styling.
+* **Dynamic Content Management**: Easily update projects, skills, and experience sections; supports modular content for future expansion.
+* **Performance Optimized**: Built with SvelteKit and Vite for lightning-fast load times and smooth navigation.
+* **Interactive Elements**: Subtle animations, hover effects, and transitions to enhance engagement without distraction.
+* **Accessible & Inclusive**: Designed with screen readers, keyboard navigation, and high-contrast options in mind.
+* **SEO Friendly**: Structured layout, meta tags, and semantic HTML improve discoverability for search engines.
+* **AI & Web Development Showcase**: Highlights projects, technical skills, and AI experiments in an intuitive layout.
+
+---
 
 ## Technologies Used
-- **SvelteKit**: Frontend framework for building the core application.
-- **Tailwind CSS** (optional): Utility-first CSS framework for styling (if used).
-- **Vite**: Fast build tool integrated with SvelteKit for bundling and development.
-- **JavaScript/TypeScript**: Adds functionality and ensures type safety.
-- **Netlify/Vercel** (optional): Deployment platforms for hosting the application.
 
-## Installation and Setup
+* **SvelteKit** — Core frontend framework for reactive, optimized web applications.
+* **Tailwind CSS** — Utility-first styling framework enabling clean, scalable designs.
+* **Vite** — Fast build tool integrated with SvelteKit for development and bundling.
+* **JavaScript / TypeScript** — Ensures functionality, type safety, and future scalability.
+* **Netlify** — Deployment platform for hosting the web application.
+
+---
+
+## Installation & Setup
+
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte.git portfolio
+
+```bash
+git clone https://github.com/DigitalCreationsCo/bryant-mejia-portfolio-svelte.git portfolio
+cd portfolio
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+4. Build for production:
+
+```bash
+npm run build
+npm run preview
+```
+
+5. Deploy to Netlify (or any preferred hosting service).
+
+---
+
+## Usage
+
+* Update projects and experience in the `/src/lib/data` or `/src/routes` directories.
+* Customize styling and theme via Tailwind CSS configuration.
+* Extend with interactive components, AI demos, or API integrations to showcase technical depth.
+
+---
+
+## Roadmap & Vision
+
+* Introduce more interactive visual elements reflecting sci-fi inspiration.
+* Integrate live AI experiments to demonstrate practical skills.
+* Expand modular components for quick project updates.
+* Add multilingual support and enhanced accessibility features.
+
+---
+
+## Contributing
+
+* Fork the repository and create a feature branch.
+* Submit PRs for improvements, bug fixes, or additional visual components.
+* Follow the project’s coding standards and styling conventions.
+
+---
+
+## License
+
+MIT License
