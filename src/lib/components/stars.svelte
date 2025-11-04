@@ -26,6 +26,14 @@
 				this.duration = minDuration + Math.random() * (maxDuration - minDuration);
 				this.color = Math.random() > 0.75 ? 'white' : '#50729A';
 				this.startTime = Date.now() + Math.random() * -2000;
+			} else {
+				// Provide default values for SSR to avoid errors
+				this.x = 0;
+				this.y = 0;
+				this.size = minSize;
+				this.duration = minDuration;
+				this.color = '#50729A';
+				this.startTime = 0;
 			}
 		}
 
@@ -50,13 +58,15 @@
 	}
 
 	function initStars() {
-		stars = Array(starCount)
-			.fill()
-			.map(() => new Star());
+		if (browser) {
+			stars = Array(starCount)
+				.fill()
+				.map(() => new Star());
+		}
 	}
 
 	function resizeCanvas() {
-		if (canvas) {
+		if (browser && canvas) {
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
 

@@ -1,21 +1,41 @@
 import type { Project } from '$lib/types';
 
+/**
+ * WHY DO I GET 'error: fetch is not a function' IN SVELTE/SVELTEKIT?
+ *
+ * This error happens if you try to use a variable named `fetch`
+ * that is `undefined`, or not a function, when running code in
+ * Node or the browser. In SvelteKit, there are usually two
+ * kinds of situations:
+ *
+ *   1. On the server, in +page.server.ts or +layout.server.ts "load" functions,
+ *      SvelteKit provides a `fetch` function as an argument to your load function.
+ *      If you pass that fetch along, you must pass it everywhere that needs it.
+ *      If you forget, you'll pass `undefined` as fetch, and calling it fails.
+ *
+ *   2. On the client (browser), the global `window.fetch` is always available.
+ *      So if you call your API code from the browser and don't pass `fetch`, you should
+ *      default to `window.fetch` (or just `fetch`), otherwise you get the error.
+ *
+ * To fix this, use this pattern in your API code:
+ *   - Accept `fetch?: typeof window.fetch`, mark it as optional in your function signature.
+ *   - When it's not passed, default to the global `fetch`.
+ *   - When calling from server code, always pass the provided fetch.
+ *   - When calling from browser code, it's ok to leave it out.
+ */
+
 const githubApiLink = 'https://api.github.com/repos/digitalcreationsco';
 const githubUserApiLink = 'https://api.github.com/users/digitalcreationsco';
 const githubUsername = 'digitalcreationsco';
 
 // Helper function to get GitHub API headers with authentication
-// apiKey should be passed from server-side code
 function getGitHubHeaders(apiKey?: string): Record<string, string> {
 	const headers: Record<string, string> = {
-		'Accept': 'application/vnd.github.v3+json'
+		'Accept': 'application/vnd.github.v3+json, application/vnd.github.mercy-preview+json' // Add topics preview media type
 	};
-	
-	// Add Authorization header if API key is available
 	if (apiKey) {
 		headers['Authorization'] = `token ${apiKey}`;
 	}
-	
 	return headers;
 }
 
@@ -31,19 +51,39 @@ interface GitHubRepo {
 	forks: number;
 	updated_at: string;
 	default_branch: string;
+	topics: string[] | null; // Add topics to the interface
 }
 
-async function fetchGitHubRepos(fetch: any, apiKey?: string): Promise<GitHubRepo[]> {
+// Accepts an optional fetch param; falls back to global fetch for browser or node >=18
+async function fetchGitHubRepos(
+	fetchParam?: typeof globalThis.fetch,
+	apiKey?: string
+): Promise<GitHubRepo[]> {
+	const fetchFn: typeof globalThis.fetch =
+		fetchParam ||
+		(typeof window !== 'undefined' && window.fetch) ||
+		(typeof globalThis !== 'undefined' && (globalThis as any).fetch);
+
+	if (!fetchFn) {
+		console.error(
+			'fetch is not available: provide fetch as argument, or ensure global fetch (Node >=18 or browser runtime)'
+		);
+		return [];
+	}
+
 	try {
-		const response = await fetch(`${githubUserApiLink}/repos?sort=updated&direction=desc&per_page=100`, {
-			method: 'GET',
-			headers: getGitHubHeaders(apiKey)
-		});
+		const response = await fetchFn(
+			`${githubUserApiLink}/repos?sort=updated&direction=desc&per_page=100`,
+			{
+				method: 'GET',
+				headers: getGitHubHeaders(apiKey)
+			}
+		);
 
 		if (!response.ok) {
-			// Log status for debugging but don't throw - return empty array
-			console.warn(`GitHub API returned ${response.status}: ${response.statusText}`);
-			// If rate limited, log a warning
+			console.warn(
+				`GitHub API returned ${response.status}: ${response.statusText}`
+			);
 			if (response.status === 403) {
 				console.warn('GitHub API rate limit may have been exceeded');
 			}
@@ -57,7 +97,10 @@ async function fetchGitHubRepos(fetch: any, apiKey?: string): Promise<GitHubRepo
 
 		try {
 			const repos: GitHubRepo[] = JSON.parse(text);
-			return Array.isArray(repos) ? repos : [];
+			const filteredRepos = Array.isArray(repos)
+				? repos.filter(repo => repo.name.toLowerCase() !== githubUsername.toLowerCase())
+				: [];
+			return filteredRepos;
 		} catch (parseError) {
 			console.error('Failed to parse GitHub API response:', parseError);
 			return [];
@@ -71,7 +114,6 @@ async function fetchGitHubRepos(fetch: any, apiKey?: string): Promise<GitHubRepo
 function transformGitHubRepoToProject(repo: GitHubRepo): Project {
 	const slug = repo.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 	const branch = repo.default_branch || 'main';
-	// Try common image file names - these will be validated when fetched
 	const possibleImagePaths = [
 		`preview.png`,
 		`${repo.name}-preview.png`,
@@ -80,24 +122,23 @@ function transformGitHubRepoToProject(repo: GitHubRepo): Project {
 		`screenshot.png`,
 		`image-preview.png`
 	];
-	// Use the first possible path as default (will be validated when ProjectService fetches it)
 	const imageUrl = `https://raw.githubusercontent.com/${repo.full_name}/${branch}/${possibleImagePaths[0]}`;
 	const readmeUrl = `https://raw.githubusercontent.com/${repo.full_name}/${branch}/README.md`;
 
 	return {
 		id: repo.id,
-		slug: slug,
+		slug,
 		name: repo.name,
 		url: `${githubApiLink}/${repo.name}`,
 		liveUrl: repo.homepage || '',
 		description: repo.description || '',
-		imageUrl: imageUrl,
-		readmeUrl: readmeUrl,
-		tags: repo.language ? [repo.language] : []
+		imageUrl,
+		readmeUrl,
+		tags: Array.from(new Set([...(repo.language ? [repo.language] : []), ...(repo.topics || [])])) // Include language and topics, remove duplicates
 	};
 }
 
-// Static projects list for backward compatibility and fallback
+// Static projects list for fallback/compat
 const staticProjects: Project[] = [
 	{
 		id: 5,
@@ -210,46 +251,45 @@ Typescript is used throughout the application, providing static typing to improv
 	},
 ];
 
-// Get initial projects with 3 most recent repos prepended
-async function getInitialProjects(fetch: any, apiKey?: string): Promise<Project[]> {
+// This function now supports optional fetch param
+async function getInitialProjects(fetchParam?: typeof globalThis.fetch, apiKey?: string): Promise<Project[]> {
 	try {
-		const repos = await fetchGitHubRepos(fetch, apiKey);
-		
-		// Only add repos if we successfully fetched them
+		const repos = await fetchGitHubRepos(fetchParam, apiKey);
 		if (repos && repos.length > 0) {
-			const recentRepos = repos.slice(0, 3).map(repo => transformGitHubRepoToProject(repo));
-			// Prepend the 3 most recent repos to the static projects
+			const recentRepos = repos.map(repo => transformGitHubRepoToProject(repo));
 			return [...recentRepos, ...staticProjects];
 		}
 	} catch (error) {
 		console.error('Error in getInitialProjects, falling back to static projects:', error);
 	}
-	
-	// Fallback to static projects if GitHub fetch fails
 	return staticProjects;
 }
 
-// Get 6 most recent GitHub repos as projects (for runtime fetching)
-async function getRecentGitHubReposAsProjects(fetch: any, apiKey?: string, limit: number = 6): Promise<Project[]> {
+async function getRecentGitHubReposAsProjects(fetchParam?: typeof globalThis.fetch, apiKey?: string, limit: number = 6): Promise<Project[]> {
 	try {
-		const repos = await fetchGitHubRepos(fetch, apiKey);
+		const repos = await fetchGitHubRepos(fetchParam, apiKey);
 		if (repos && repos.length > 0) {
 			return repos.slice(0, limit).map(repo => transformGitHubRepoToProject(repo));
 		}
 	} catch (error) {
 		console.error('Error in getRecentGitHubReposAsProjects:', error);
 	}
-	
-	// Return empty array if fetch fails - component will handle gracefully
 	return [];
 }
 
 // Get all GitHub repos as projects (kept for backward compatibility)
-async function getAllGitHubReposAsProjects(fetch: any, apiKey?: string): Promise<Project[]> {
-	return getRecentGitHubReposAsProjects(fetch, apiKey, 100);
+async function getAllGitHubReposAsProjects(fetchParam?: typeof globalThis.fetch, apiKey?: string): Promise<Project[]> {
+	return getRecentGitHubReposAsProjects(fetchParam, apiKey, 100);
 }
 
 // For backward compatibility
 const initialProjects = staticProjects;
 
-export { initialProjects, fetchGitHubRepos, transformGitHubRepoToProject, getInitialProjects, getAllGitHubReposAsProjects, getRecentGitHubReposAsProjects };
+export {
+	initialProjects,
+	fetchGitHubRepos,
+	transformGitHubRepoToProject,
+	getInitialProjects,
+	getAllGitHubReposAsProjects,
+	getRecentGitHubReposAsProjects
+};

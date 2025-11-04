@@ -7,5 +7,5 @@
 </script>
 
 <section class="grow" in:fade|local={{ duration: 1000 }} out:fade|local={{ duration: 50 }}>
-	<Portfolio fetch={data.fetch} projectService={data.projectService} />
+	<Portfolio fetch={data.fetch} projectService={data.projectService} initialProjectsData={data.projects} />
 </section>

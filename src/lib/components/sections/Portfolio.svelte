@@ -7,29 +7,42 @@
 	import Saos from 'saos';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import type { Project } from '$lib/types';
 
 	export let fetch: (input: URL | RequestInfo, init?: RequestInit) => Promise<Response>;
 	export let projectService: ProjectService;
-	
-	// Load 3 static projects initially
+	export let initialProjectsData: Project[] = [];
+
 	const staticProjectsToShow = initialProjects.slice(0, 3);
-	
+
+	/**
+	 * Make a writable variable for the UI list
+	 * Whenever the $projects store updates, this will update.
+	 * Rely on the $projects array, which reflects the values of projectsStore.
+	 * Force the $projects array to always update when the underlying Map changes.
+	 */
+
 	onMount(() => {
-		const currentUrl = $page.url.pathname;
-		sessionStorage.setItem('lastUrl', currentUrl);
-		
-		// Initialize with 3 static projects
-		projectsStore.update((projectsMap) => {
-			staticProjectsToShow.forEach(project => {
-				if (!projectsMap.has(project.id)) {
-					projectsMap.set(project.id, project);
-				}
-			});
-			return projectsMap;
+		const unsubscribe = page.subscribe(($page) => {
+			const currentUrl = $page.url.pathname;
+			sessionStorage.setItem('lastUrl', currentUrl);
 		});
+
+		// Initialize with projects from the server, or static projects if none are provided
+		const initialData = initialProjectsData.length > 0 ? initialProjectsData : staticProjectsToShow;
+		projectsStore.set(new Map(initialData.map(project => [project.id, project])));
+
+		return () => {
+			unsubscribe();
+		};
 	});
 
 	let isIntersecting = false;
+
+	// Utility to refresh the projectsStore so that the $projects array UI updates
+	function forceProjectsArrayUpdate() {
+		projectsStore.update(map => new Map(map));
+	}
 
 	// Fetch projects when this section is appeared
 	function checkIntersecting(node: Element) {
@@ -42,20 +55,35 @@
 
 					try {
 						// Fetch 6 most recent GitHub repos dynamically
-						// Note: apiKey is not passed to avoid exposing secrets to client
-						// Client-side requests will work without auth (lower rate limits)
 						const githubProjects = await getRecentGitHubReposAsProjects(fetch, undefined, 6);
-						
+						console.log('githubProjects:', githubProjects);
+
 						if (githubProjects && githubProjects.length > 0) {
-							// Fetch details for each project
+							// Fetch details for each project and collect up-to-date Project objects
+							const rawMap = new Map();
 							for (const project of githubProjects) {
 								try {
-									await projectService.fetchProject({ project, fetch });
+									const detailResult = await projectService.fetchProject({ project, fetch });
+
+									// Accept detailResult as either a project or undefined (void)
+									if (detailResult && detailResult.id) {
+										rawMap.set(detailResult.id, detailResult);
+									}
 								} catch (_) {
-									// Continue with next project if one fails
 									continue;
 								}
 							}
+
+							// Force replace the projects store (to guarantee a new state and UI update)
+							projectsStore.update(_prev => {
+								const merged = new Map(initialData.map(p => [p.id, p])); // Use initialData here
+								// Give fetched projects priority
+								for (const [id, p] of rawMap) {
+									merged.set(id, p);
+								}
+								return merged;
+							});
+							forceProjectsArrayUpdate(); // ensure $projects updates
 						} else {
 							console.warn('No GitHub repositories found or API request failed');
 						}
@@ -77,14 +105,17 @@
 
 <div use:checkIntersecting class="px-10 py-2 md:p-10 mx-auto border-t-[11px] border-blue">
 	<div class="flex flex-col max-w-4xl mx-auto">
-		{#if $projects.length == 0}
+		{#if $projects.length === 0}
 			<ProjectCardLoading />
-		{:else if $projects.length == 1 && ($projects[0].name === 'error' || $projects[0].name === 'limit')}
+		{:else if $projects.length === 1 && ($projects[0].name === 'error' || $projects[0].name === 'limit')}
 			<ProjectCardError project={$projects[0]} />
 		{:else}
-			{#each $projects as project}
-				<ProjectCard {project} />
-			{/each}
+			<!-- The key block below forces the #each block to refresh if array changes (esp. after Map replacement) -->
+			{#key $projects}
+				{#each $projects as project (project.id)}
+					<ProjectCard {project} />
+				{/each}
+			{/key}
 		{/if}
 	</div>
 </div>

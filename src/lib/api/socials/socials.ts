@@ -16,7 +16,7 @@ export const resumeLink = 'https://docs.google.com/document/d/1_jt27qBweuuqBo8RO
 
 export const socials = [
 	{
-		social: 'Download Resume',
+		social: 'View Resume',
 		name: '',
 		link: resumeLink,
 		// colorVariant: { key: 'email' } as ButtonColorVariant,

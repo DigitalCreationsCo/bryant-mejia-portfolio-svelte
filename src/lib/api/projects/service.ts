@@ -114,7 +114,7 @@ class ProjectService {
 					downloadsCount: await this.getDownloadsCount(project.url)
 				};
 
-				return projectDetailStore.update(() => newProject);
+				return newProject;
 			} else {
 				let fallbackData: ProjectDetail;
 
@@ -138,15 +138,13 @@ class ProjectService {
 						repositoryUrl: ''
 					};
 				} else {
+					// If not a 403 and not in browser with localStorage, re-throw the response
 					throw response;
 				}
-
-				projectDetailStore.update(() => fallbackData);
-
-				return error((response.status as any) ?? 500, 'Failed to fetch data');
+				return fallbackData;
 			}
 		} catch (err) {
-			console.log(err);
+			console.error('Error fetching project detail:', err);
 
 			let fallbackData: ProjectDetail;
 
@@ -170,10 +168,7 @@ class ProjectService {
 					repositoryUrl: ''
 				};
 			}
-
-			projectDetailStore.update(() => fallbackData);
-
-			return error(500, 'Failed to fetch data');
+			return fallbackData;
 		}
 	}
 

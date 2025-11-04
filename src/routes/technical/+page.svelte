@@ -1,9 +1,6 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import Technical from '$lib/components/sections/Technical.svelte';
 	import { fade } from 'svelte/transition';
-
-	export let data: PageData;
 </script>
 
 <section

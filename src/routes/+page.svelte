@@ -1,10 +1,7 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import Hero from '$lib/components/sections/Hero.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-
-	export let data: PageData;
 
 	let isFirstLoad = true;
 	onMount(() => {

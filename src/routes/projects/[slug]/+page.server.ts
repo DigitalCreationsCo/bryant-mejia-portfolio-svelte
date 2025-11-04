@@ -1,14 +1,14 @@
 import { error } from '@sveltejs/kit';
 import { ProjectService, getInitialProjects, initialProjects } from '$lib/api/projects';
-import { type Project } from '$lib/types';
+import { type Project, type ProjectDetail } from '$lib/types';
 import { dev } from '$app/environment';
 import type { EntryGenerator, PageServerLoad } from './$types';
-import { env } from '$env/dynamic/private';
+import { GITHUB_API_KEY } from '$env/static/private';
 
 /** @type {PageServerLoad} */
 export async function load({ params, fetch }) {
     try {
-        const apiKey = env.GITHUB_API_KEY;
+        const apiKey = GITHUB_API_KEY;
         // Always fallback to static projects during prerender to avoid 404s
         let allProjects = initialProjects;
         
@@ -33,8 +33,10 @@ export async function load({ params, fetch }) {
         if (project === undefined) throw error(404, 'Project not found');
 
         const projectService: ProjectService = new ProjectService(apiKey);
+        const projectDetail: ProjectDetail = await projectService.fetchProjectDetail({ project, fetch });
+        const readmeContent: string | null = project.readmeUrl ? await projectService.getProjectReadme({ project, fetch }) : null;
 
-        return { project: project, projectService: projectService, fetch: fetch };
+        return { projectDetail: projectDetail, readmeContent: readmeContent };
     } catch (err) {
         console.error('Error in load function:', err);
         // If it's already a SvelteKit error, re-throw it
@@ -50,4 +52,3 @@ export const entries: EntryGenerator = async () => {
     // GitHub repos will be fetched dynamically at runtime in the Portfolio component
     return initialProjects.map(({ slug }) => ({ slug }));
 };
-
