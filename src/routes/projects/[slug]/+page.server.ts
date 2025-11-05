@@ -48,7 +48,8 @@ export async function load({ params, fetch }) {
 }
 
 export const entries: EntryGenerator = async () => {
-    // Use static projects for entries generation to ensure reliable builds
-    // GitHub repos will be fetched dynamically at runtime in the Portfolio component
-    return initialProjects.map(({ slug }) => ({ slug }));
+    // Fetch all projects (static and dynamic) for entries generation to ensure all routes are prerendered
+    const apiKey = GITHUB_API_KEY; // Access API key for fetching
+    const allProjects = await getInitialProjects(fetch, apiKey); // Use global fetch for prerendering
+    return allProjects.map(({ slug }) => ({ slug }));
 };
