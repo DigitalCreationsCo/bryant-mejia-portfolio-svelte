@@ -3,10 +3,12 @@ import { ProjectService, getInitialProjects, initialProjects } from '$lib/api/pr
 import { type Project, type ProjectDetail } from '$lib/types';
 import { dev } from '$app/environment';
 import type { EntryGenerator, PageServerLoad } from './$types';
+import { GITHUB_API_KEY } from '$env/static/private';
+
 /** @type {PageServerLoad} */
 export async function load({ params, fetch }) {
     try {
-        const apiKey = process.env.GITHUB_API_KEY;
+        const apiKey = GITHUB_API_KEY;
         // Always fallback to static projects during prerender to avoid 404s
         let allProjects = initialProjects;
         
