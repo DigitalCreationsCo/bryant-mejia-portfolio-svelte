@@ -1,6 +1,7 @@
 [build]
   command = "npm run build"
   publish = "build"
+  id = "23fff8dc-b4f6-4f10-a1c3-ea274c3a9f33"
 
 [build.environment]
   SECRETS_SCAN_OMIT_PATHS = ".svelte-kit/output/server/chunks/private.js"
